@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    />
+    <link rel="stylesheet" href="main.css" />
+
+    <title>Make.DisCount</title>
+  </head>
+  <body>
+    <div class="page_wrapper">
+      <nav class="navbar">
+        <div class="navbar_container">
+          <a href="#" class="navbar_logo">Make.DisCount</a>
+        </div>
+        <ul class="navbar_menu">
+          <li class="navbar_item">
+            <a href="#home" class="navbar_links" id="home-page">Home</a>
+          </li>
+          <li class="navbar_item">
+            <a href="#about" class="navbar_links" id="about-page">About</a>
+          </li>
+          <li class="navbar_item">
+            <a href="#services" class="navbar_links" id="services-page"
+              >Services</a
+            >
+          </li>
+        </ul>
+      </nav>
+
+      <div id="map"></div>
+    </div>
+  </body>
+  <script
+    src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+    integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
+    crossorigin=""
+  ></script>
+
+  <script src="map.js"></script>
+</html>
