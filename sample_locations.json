@@ -1,0 +1,123 @@
+[
+    {
+      "latitude": 38.2466,
+      "longitude": 21.7346,
+      "name": "Patras City Center",
+      "description": "The bustling center of Patras."
+    },
+    {
+      "latitude": 38.2533,
+      "longitude": 21.7531,
+      "name": "Achaia Clauss Winery",
+      "description": "Famous winery in Patras."
+    },
+    {
+      "latitude": 38.2521,
+      "longitude": 21.7382,
+      "name": "Psila Alonia Square",
+      "description": "Historic square in Patras."
+    },
+    {
+      "latitude": 38.2388,
+      "longitude": 21.7341,
+      "name": "Rio-Antirrio Bridge",
+      "description": "Iconic bridge connecting Patras to the Peloponnese."
+    },
+    {
+      "latitude": 38.2472,
+      "longitude": 21.7327,
+      "name": "Mega Supermarket",
+      "description": "Large supermarket offering a wide range of products."
+    },
+    {
+      "latitude": 38.2538,
+      "longitude": 21.7489,
+      "name": "Fresh Mart",
+      "description": "Mini market known for its fresh produce."
+    },
+    {
+      "latitude": 38.2444,
+      "longitude": 21.7386,
+      "name": "GreenGrocer Mini Market",
+      "description": "Local mini market with a focus on organic products."
+    },
+    {
+      "latitude": 38.2459,
+      "longitude": 21.7412,
+      "name": "QuickMart",
+      "description": "Convenient store for everyday essentials."
+    },
+    {
+      "latitude": 38.2478,
+      "longitude": 21.7354,
+      "name": "Econo Foods",
+      "description": "Budget-friendly supermarket chain."
+    },
+    {
+      "latitude": 38.2462,
+      "longitude": 21.7340,
+      "name": "Gourmet Grocers",
+      "description": "Upscale grocery store offering gourmet products."
+    },
+    {
+      "latitude": 38.2500,
+      "longitude": 21.7500,
+      "name": "Golden Groceries",
+      "description": "Premium supermarket with a wide selection."
+    },
+    {
+      "latitude": 38.2493,
+      "longitude": 21.7367,
+      "name": "Sunshine Supermarket",
+      "description": "One-stop shop for all your grocery needs."
+    },
+    {
+      "latitude": 38.2507,
+      "longitude": 21.7432,
+      "name": "Marketplace Delights",
+      "description": "Market with a variety of local and international products."
+    },
+    {
+      "latitude": 38.2481,
+      "longitude": 21.7320,
+      "name": "QuickStop Mini Mart",
+      "description": "Convenient mini market for quick shopping."
+    },
+    {
+      "latitude": 38.2515,
+      "longitude": 21.7396,
+      "name": "Budget Basket",
+      "description": "Affordable grocery shopping for the whole family."
+    },
+    {
+      "latitude": 38.2485,
+      "longitude": 21.7458,
+      "name": "GreenField Organics",
+      "description": "Organic-focused market with fresh produce."
+    },
+    {
+      "latitude": 38.2497,
+      "longitude": 21.7379,
+      "name": "Neighborhood Mart",
+      "description": "Friendly local market serving the community."
+    },
+    {
+      "latitude": 38.2489,
+      "longitude": 21.7314,
+      "name": "QuickSaver",
+      "description": "Get your essentials quickly at QuickSaver."
+    },
+    {
+      "latitude": 38.2510,
+      "longitude": 21.7469,
+      "name": "FineFoods",
+      "description": "High-quality foods for discerning customers."
+    },
+    {
+      "latitude": 38.2502,
+      "longitude": 21.7385,
+      "name": "Corner Market",
+      "description": "Convenient corner store for your daily needs."
+    }
+  ]
+  
