@@ -1,5 +1,6 @@
 * {
   box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 /* Reset some default margin and padding */
@@ -55,4 +56,43 @@ body, html {
 
 .map-area {
   flex-basis: 100%;
+}
+
+/* Additional styles for the search results */
+.search-results {
+  max-height: 100vh;
+  overflow-y: auto;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.result-item {
+  display: flex;
+  flex-direction: column; /* Stack elements vertically */
+  gap: 5px;
+  cursor: pointer;
+  padding: 15px;
+  border-bottom: 2px solid #b8b6b6;
+  transition: background-color 0.3s ease;
+}
+
+.result-item:last-child {
+  border-bottom: none;
+}
+
+.result-item:hover {
+  background-color: #d3d1d1;
+}
+
+.result-details {
+  flex-grow: 1;
+}
+
+.result-name {
+  font-weight: bold;
+}
+
+  .result-description {
+  font-size: 16px;
+  color: #666;
 }
