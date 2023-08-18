@@ -16,7 +16,7 @@ const markers = [];
 fetch('map.geojson')
   .then(response => response.json())
   .then(data => {
-    // Loop through GeoJSON data and create markers
+    // Loop through GeoJSON data aSnd create markers
     data.features.forEach(feature => {
       const coordinates = feature.geometry.coordinates;
       const name = feature.properties.name;
