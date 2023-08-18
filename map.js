@@ -13,18 +13,21 @@ osm.addTo(map);
 // Define an empty array to store markers
 const markers = [];
 
-fetch('sample_locations.json')
+fetch('map.geojson')
   .then(response => response.json())
   .then(data => {
-    // Loop through JSON data and create markers
-    data.forEach(location => {
-      const marker = L.marker([location.latitude, location.longitude])
-        .bindPopup(`<b>${location.name}</b><br>${location.description}`)
+    // Loop through GeoJSON data and create markers
+    data.features.forEach(feature => {
+      const coordinates = feature.geometry.coordinates;
+      const name = feature.properties.name;
+
+      const marker = L.marker([coordinates[1], coordinates[0]])
+        .bindPopup(`<b>${name}</b>`)
         .addTo(map);
 
       markers.push(marker); // Add the marker to the markers array
     });
-  }).catch(error => console.error('Error loading JSON data:', error));
+  }).catch(error => console.error('Error loading GeoJSON data:', error));
 
   //console.log(markers); 
 
