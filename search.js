@@ -1,4 +1,3 @@
-// Define an empty array to store markers
 const markers = [];
 
 fetch('map.geojson')
@@ -71,7 +70,7 @@ searchInput.addEventListener('input', function () {
     });
     searchResults.appendChild(resultItem);
 
-    console.log('Name:', nameElement.textContent);
+    console.log('Nameeee:', nameElement.textContent);
     console.log('Description:', descriptionElement.textContent);
   });
 });
