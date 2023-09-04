@@ -49,20 +49,14 @@ searchInput.addEventListener('input', function () {
     const nameElement = document.createElement('div');
     nameElement.classList.add('result-name');
 
-    const descriptionElement = document.createElement('div');
-    descriptionElement.classList.add('result-description');
-
     // Append elements to the result item
     resultItem.appendChild(nameElement);
-    resultItem.appendChild(descriptionElement);
 
     // Strip HTML tags from popup content and replace with spaces
     const popupContent = marker._popup.getContent();
-    const lines = popupContent.split('<br>');
 
     // Set text content for name and description elements with a <br> tag
-    nameElement.innerHTML = lines[0];
-    descriptionElement.textContent = lines[1];
+    nameElement.innerHTML = popupContent;
 
     // Add event listener when clicking the resultItem to focus on map
     resultItem.addEventListener('click', () => {
@@ -70,7 +64,6 @@ searchInput.addEventListener('input', function () {
     });
     searchResults.appendChild(resultItem);
 
-    console.log('Nameeee:', nameElement.textContent);
-    console.log('Description:', descriptionElement.textContent);
+    console.log('Name:', nameElement.textContent);;
   });
 });
