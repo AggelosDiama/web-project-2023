@@ -1,22 +1,3 @@
-const markers = [];
-
-fetch('map.geojson')
-  .then(response => response.json())
-  .then(data => {
-    // Loop through GeoJSON data and create markers
-    data.features.forEach(feature => {
-      const coordinates = feature.geometry.coordinates;
-      const name = feature.properties.name;
-
-      const marker = L.marker([coordinates[1], coordinates[0]])
-        .bindPopup(`<b>${name}</b>`)
-        .addTo(map);
-
-      markers.push(marker); // Add the marker to the markers array
-    });
-  })
-  .catch(error => console.error('Error loading GeoJSON data:', error));
-
 const searchInput = document.getElementById('searchInput');
 const searchResults = document.getElementById('searchResults');
 
@@ -60,10 +41,42 @@ searchInput.addEventListener('input', function () {
 
     // Add event listener when clicking the resultItem to focus on map
     resultItem.addEventListener('click', () => {
-      map.setView(marker.getLatLng(), 15);
+      map.setView(marker.getLatLng(), 25);
+      showStoreDetails(marker);
     });
     searchResults.appendChild(resultItem);
 
-    console.log('Name:', nameElement.textContent);;
+    //console.log('Name:', nameElement.textContent);
   });
+  function showStoreDetails(marker) {
+    // Extract store name from marker popup content
+    const popupContent = marker._popup.getContent();
+    const storeName = popupContent.replace(/<[^>]*>/g, ''); // Remove HTML tags
+  
+    // Update the store details panel with the store name
+    const storeNameElement = document.getElementById('storeName');
+    storeNameElement.textContent = storeName;
+  
+    // Fetch and display products for the selected store
+    fetchProductsForStore(storeName);
+  }
+  
+  function fetchProductsForStore(storeName) {
+    // Send an AJAX request to your PHP script to fetch products for the selected store
+    fetch('get-products.php?store=' + encodeURIComponent(storeName))
+      .then(response => response.json())
+      .then(data => {
+        const productList = document.getElementById('productList');
+        productList.innerHTML = ''; // Clear existing product list
+  
+        data.forEach(product => {
+          const productItem = document.createElement('li');
+          productItem.textContent = product.name;
+          productList.appendChild(productItem);
+        });
+
+      })
+      .catch(error => console.error('Error loading product data:', error));
+      console.log('product list:', productList.textContent);
+  }
 });
