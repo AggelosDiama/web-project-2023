@@ -1,0 +1,6 @@
+{
+    "require": {
+        "libreworks/ext-mongodb-hhi": "^1.2",
+        "mongodb/mongodb": "^1.16"
+    }
+}

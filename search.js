@@ -77,6 +77,6 @@ searchInput.addEventListener('input', function () {
 
       })
       .catch(error => console.error('Error loading product data:', error));
-      console.log('product list:', productList.textContent);
+     //console.log('product list:', productList.textContent);
   }
 });
