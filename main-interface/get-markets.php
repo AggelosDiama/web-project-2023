@@ -2,19 +2,20 @@
 use Exception;
 use MongoDB\Client;
 
-require 'vendor/autoload.php'; // Include the MongoDB PHP driver
+require '../vendor/autoload.php'; // Include the MongoDB PHP driver
 
-$mongoUrl = 'mongodb://localhost:27017'; // Replace with your MongoDB connection URL
-$dbName = 'webproject2023'; // Replace with your database name
+$mongoUrl = 'mongodb://localhost:27017'; 
+$dbName = 'webproject2023'; 
 
 $client = new MongoDB\Client($mongoUrl);
-$collection = $client->$dbName->markets; // Replace 'markets' with your collection name
+$collection = $client->$dbName->markets; 
 
 $markets = $collection->find([]); // Retrieve all documents
 
 $data = [];
 foreach ($markets as $market) {
     $data[] = [
+        'id' => $market['id'],
         'name' => $market['name'],
         'coordinates' => [
             $market['coordinates'][0],

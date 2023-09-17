@@ -1,142 +1,142 @@
 [
-    {
-        "name": "Takis",
-        "password": "Takaros1@",
-        "email": "takis@mail.com",
-        "location": [21.7427,38.2553],
-        "tokens": {
-            "total_tokens": "",
-            "this_month_tokens": "",
-            "last_month_tokens": "",
-            "given_tokens": ""
-        },
-        "likes": "",
-        "deals_made": ""
+  {
+    "name": "Takis",
+    "password": "Takaros1@",
+    "email": "takis@mail.com",
+    "location": [21.7427, 38.2553],
+    "tokens": {
+      "total_tokens": "",
+      "this_month_tokens": "",
+      "last_month_tokens": "",
+      "given_tokens": ""
     },
-    {
-        "name": "Makis",
-        "password": "Makaros@",
-        "email": "makis@mail.com",
-        "location": [21.7433,38.2537],
-        "tokens": {
-            "total_tokens": "",
-            "this_month_tokens": "",
-            "last_month_tokens": "",
-            "given_tokens": ""
-        },
-        "likes": "",
-        "deals_made": ""
+    "likes": "",
+    "deals_made": ""
+  },
+  {
+    "name": "Makis",
+    "password": "Makaros1@",
+    "email": "makis@mail.com",
+    "location": [21.7433, 38.2537],
+    "tokens": {
+      "total_tokens": "",
+      "this_month_tokens": "",
+      "last_month_tokens": "",
+      "given_tokens": ""
     },
-    {
-        "name": "Lampis",
-        "password": "Lamparos@",
-        "email": "lampis@mail.com",
-        "location": [21.7395,38.2540],
-        "tokens": {
-            "total_tokens": "",
-            "this_month_tokens": "",
-            "last_month_tokens": "",
-            "given_tokens": ""
-        },
-        "likes": "",
-        "deals_made": ""
+    "likes": "",
+    "deals_made": ""
+  },
+  {
+    "name": "Lampis",
+    "password": "Lamparos1@",
+    "email": "lampis@mail.com",
+    "location": [21.7395, 38.254],
+    "tokens": {
+      "total_tokens": "",
+      "this_month_tokens": "",
+      "last_month_tokens": "",
+      "given_tokens": ""
     },
-    {
-        "name": "Sakis",
-        "password": "Sakaros1@",
-        "email": "sakis@mail.com",
-        "location": [21.7435,38.2592],
-        "tokens": {
-            "total_tokens": "",
-            "this_month_tokens": "",
-            "last_month_tokens": "",
-            "given_tokens": ""
-        },
-        "likes": "",
-        "deals_made": ""
+    "likes": "",
+    "deals_made": ""
+  },
+  {
+    "name": "Sakis",
+    "password": "Sakaros1@",
+    "email": "sakis@mail.com",
+    "location": [21.7435, 38.2592],
+    "tokens": {
+      "total_tokens": "",
+      "this_month_tokens": "",
+      "last_month_tokens": "",
+      "given_tokens": ""
     },
-    {
-        "name": "Lakis",
-        "password": "Lakaros@",
-        "email": "lakis@mail.com",
-        "location": [21.7427,38.2553],
-        "tokens": {
-            "total_tokens": "",
-            "this_month_tokens": "",
-            "last_month_tokens": "",
-            "given_tokens": ""
-        },
-        "likes": "",
-        "deals_made": ""
+    "likes": "",
+    "deals_made": ""
+  },
+  {
+    "name": "Lakis",
+    "password": "Lakaros@",
+    "email": "lakis@mail.com",
+    "location": [21.7427, 38.2553],
+    "tokens": {
+      "total_tokens": "",
+      "this_month_tokens": "",
+      "last_month_tokens": "",
+      "given_tokens": ""
     },
-    {
-        "name": "Dantis",
-        "password": "Dantaros1@",
-        "email": "dantis@mail.com",
-        "location": [21.7412,38.2495],
-        "tokens": {
-            "total_tokens": "",
-            "this_month_tokens": "",
-            "last_month_tokens": "",
-            "given_tokens": ""
-        },
-        "likes": "",
-        "deals_made": ""
+    "likes": "",
+    "deals_made": ""
+  },
+  {
+    "name": "Dantis",
+    "password": "Dantaros1@",
+    "email": "dantis@mail.com",
+    "location": [21.7412, 38.2495],
+    "tokens": {
+      "total_tokens": "",
+      "this_month_tokens": "",
+      "last_month_tokens": "",
+      "given_tokens": ""
     },
-    {
-        "name": "Akis",
-        "password": "akaros1@",
-        "email": "akis@mail.com",
-        "location": [21.7334,38.2449],
-        "tokens": {
-            "total_tokens": "",
-            "this_month_tokens": "",
-            "last_month_tokens": "",
-            "given_tokens": ""
-        },
-        "likes": "",
-        "deals_made": ""
+    "likes": "",
+    "deals_made": ""
+  },
+  {
+    "name": "Akis",
+    "password": "akaros1@",
+    "email": "akis@mail.com",
+    "location": [21.7334, 38.2449],
+    "tokens": {
+      "total_tokens": "",
+      "this_month_tokens": "",
+      "last_month_tokens": "",
+      "given_tokens": ""
     },
-    {
-        "name": "Ntakis",
-        "password": "Ntakaros@",
-        "email": "ntakis@mail.com",
-        "location": [21.7381,38.2422],
-        "tokens": {
-            "total_tokens": "",
-            "this_month_tokens": "",
-            "last_month_tokens": "",
-            "given_tokens": ""
-        },
-        "likes": "",
-        "deals_made": ""
+    "likes": "",
+    "deals_made": ""
+  },
+  {
+    "name": "Ntakis",
+    "password": "Ntakaros@",
+    "email": "ntakis@mail.com",
+    "location": [21.7381, 38.2422],
+    "tokens": {
+      "total_tokens": "",
+      "this_month_tokens": "",
+      "last_month_tokens": "",
+      "given_tokens": ""
     },
-    {
-        "name": "Grigoris",
-        "password": "Grigorakis1@",
-        "email": "grigoris@mail.com",
-        "location": [21.7293,38.2364],
-        "tokens": {
-            "total_tokens": "",
-            "this_month_tokens": "",
-            "last_month_tokens": "",
-            "given_tokens": ""
-        },
-        "likes": "",
-        "deals_made": ""
+    "likes": "",
+    "deals_made": ""
+  },
+  {
+    "name": "Grigoris",
+    "password": "Grigorakis1@",
+    "email": "greg@mail.com",
+    "location": [21.7293, 38.2364],
+    "tokens": {
+      "total_tokens": "",
+      "this_month_tokens": "",
+      "last_month_tokens": "",
+      "given_tokens": ""
     },
-    {
-        "name": "Manolis",
-        "password": "Manolakis1@",
-        "email": "manolis@mail.com",
-        "location": [21.7385,38.2344],
-        "tokens": {
-            "total_tokens": "",
-            "this_month_tokens": "",
-            "last_month_tokens": "",
-            "given_tokens": ""
-        },
-        "likes": "",
-        "deals_made": ""
-    }
+    "likes": "",
+    "deals_made": ""
+  },
+  {
+    "name": "Manolis",
+    "password": "Manolakis1@",
+    "email": "manolis@mail.com",
+    "location": [21.7385, 38.2344],
+    "tokens": {
+      "total_tokens": "",
+      "this_month_tokens": "",
+      "last_month_tokens": "",
+      "given_tokens": ""
+    },
+    "likes": "",
+    "deals_made": ""
+  }
 ]

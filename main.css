@@ -1,17 +1,13 @@
+/* ----- General Styling ----- */
+
 * {
   box-sizing: border-box;
   font-family: Arial, Helvetica, sans-serif;
 }
 
-/* Reset some default margin and padding */
 body, html {
   margin: 0;
   padding: 0;
-}
-
-#map {
-  width: 100%;
-  height: 100vh;
 }
 
 /* Style for the page wrapper */
@@ -19,6 +15,19 @@ body, html {
   display: flex;
   height: 100vh;
 }
+
+#map {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  z-index: 1;
+}
+
+.map-area {
+  flex-basis: 100%;
+}
+
+/* ----- Sidebar Results Styling ----- */
 
 /* Style for the logo */
 .logo-wrapper {
@@ -52,10 +61,6 @@ body, html {
   font-size: 14px;
   width: 100%;
   box-sizing: border-box;
-}
-
-.map-area {
-  flex-basis: 100%;
 }
 
 /* Additional styles for the search results */
@@ -96,3 +101,236 @@ body, html {
   font-size: 16px;
   color: #666;
 }
+
+/* ----- Sidebar Market Products Styling ----- */
+
+
+/* .sidebar-container {
+  position: absolute;
+  top: 0;
+  left: -100%; 
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  transition: left 0.3s ease;
+  display: flex;
+  flex-direction: column;
+} */
+.fa-xmark {
+  cursor: pointer;
+}
+
+/* Style for the store details */
+.store-details {
+  align-items: center;
+}
+
+/* Style for the store name */
+#storeName {
+  font-size: 24px;
+  font-weight: bold;
+  margin-right: 10px; /* Add space between store name and button */
+}
+
+/* Style for the "Submit an Offer" button */
+.submitOffer {
+  padding: 10px 20px; /* Adjust padding as needed */
+  background-color: #007bff; /* Button background color */
+  color: #fff; /* Button text color */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px; /* Button text size */
+  transition: background-color 0.3s ease; /* Add hover effect */
+  float: right;
+  margin-top: 32px;
+}
+
+.submitOffer:hover {
+  background-color: #0056b3; /* Change background color on hover */
+}
+
+
+.sidebarStoreDetails {
+  position: absolute;
+  padding: 20px;
+  margin-left: 70px;
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  top: 15px;
+  left: -650px; /* Initially hide the sidebar off-screen to the left */
+  height: 95vh;
+  background-color: #f1f1f1;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 25px;
+  transition: left 0.3s ease; /* Add a smooth transition for left property */
+  z-index: 2;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+}
+
+.sidebarStoreDetails.show-sidebar {
+  left: 350px;
+}
+
+
+  /* Style for the product list */
+  #productList {
+    max-height: 100vh;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  /* Style for each product item */
+  .product-item {
+    display: flex;
+    flex-direction: row; 
+    gap: 5px;
+    padding: 15px;
+    border-bottom: 2px solid #b8b6b6;
+    transition: background-color 0.3s ease;
+  }
+
+  .product-item:hover {
+    background-color: #ddd;
+  }
+
+/* Style for the product name */
+.product-name {
+  font-weight: bold;
+  font-size: 18px;
+  width: 75%;
+}
+
+.product-category-subcategory {
+  font-size: 15px;
+}
+
+.product-likes-dislikes {
+  margin-top: 20px;
+}
+
+.likes-count, 
+.dislike-count{
+  margin-left: 5px;
+  margin-right: 10px;
+}
+
+.fas.fa-thumbs-up,
+.fas.fa-thumbs-down {
+  font-size: 18px; /* Adjust the icon size as needed */
+  cursor: pointer;
+}
+
+/* Style for the filled icon */
+.filled {
+  color: #007bff; /* Change the color to your preferred filled icon color */
+}
+
+/* Style for the outline icon */
+.outline {
+  color: #ccc; /* Change the color to your preferred outline icon color */
+  cursor: pointer;
+}
+
+
+.product-price {
+  font-size: 25px;
+  float: right;
+  margin-block: -100px;
+  right: 35px;
+  position: absolute; 
+}
+
+
+/* ----- Avatar at the top right Styling ----- */
+
+.avatar-container {
+  position: absolute;
+  top: 0;
+  right: 0; /* Position it at the top-right corner */
+  margin: 10px; /* Add some margin for spacing */
+  z-index: 2;
+}
+
+  /* Styles for the user menu */
+.user-menu {
+  cursor: pointer;
+  background-color: #333;
+  border-radius: 50%; /* Makes it a circular shape */
+  padding: 14px;
+  padding-left: 14px;
+  width: 60px;
+  height: 60px;
+  justify-content: center; 
+  align-items: center; 
+
+  
+ }
+
+ .user-menu i {
+  color: #f9f9f9;
+  margin-bottom: 10px;
+ }
+
+ .user-menu:hover {
+  color: #333;
+  background-color: #f9f9f9;
+ }
+
+ .user-menu:hover i {
+  color: #333;
+ }
+
+/* Style for the avatar icon */
+#avatar-icon {
+  font-size: 32px;
+  position:absolute;
+  cursor: pointer;
+  z-index: 2;
+}
+
+/* Dropdown menu styles */
+/* Initial CSS to hide the dropdown menu */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  right: 25px;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  border-radius: 25px;
+  z-index: 2;
+  align-items: center;
+}
+
+/* Style for dropdown menu items */
+.dropdown-content button, .dropdown-content p {
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  border: none;
+  cursor: pointer;
+  color: #333;
+}
+
+.dropdown-content button {
+  background-color: #f9f9f9;
+  
+}
+
+/* Highlight dropdown menu items on hover */
+.dropdown-content button:hover,
+.dropdown-content p:hover {
+  background-color: #ddd;
+}
+
+/* Show the dropdown menu on hover */
+.user-menu:hover .dropdown-content {
+  display: block;
+}
+
+
+
