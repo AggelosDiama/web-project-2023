@@ -10,6 +10,8 @@ $dbName = 'webproject2023';
 $marketId = isset($_GET['marketId']) ? $_GET['marketId'] : '';
 
 $client = new MongoDB\Client($mongoUrl);
+
+$usersCollection = $client->$dbName->users;
 $marketsCollection = $client->$dbName->markets;
 $productsCollection = $client->$dbName->products;
 $categoriesCollection = $client->$dbName->categories;
@@ -32,19 +34,31 @@ if ($market) {
             // Retrieve the product's category ID and subcategory ID
             $categoryId = $product['category'];
             $subcategoryId = $product['subcategory'];
-
-            // Fetch category information, including its subcategory
+    
+            // Fetch category information
             $category = $categoriesCollection->findOne(['id' => $categoryId]);
-            $subcategory = $categoriesCollection->findOne(['subcategories.uuid' => $subcategoryId]);
-
-            if ($category && $subcategory) {
-                // Extract category and subcategory names from the fetched documents
+    
+            if ($category) {
+                // Extract the category name
                 $categoryName = $category['name'];
-                $subcategoryName = $subcategory['name'];
             } else {
                 $categoryName = 'Unknown Category';
-                $subcategoryName = 'Unknown Subcategory';
             }
+    
+            // Initialize the subcategory name
+            $subcategoryName = 'Unknown Subcategory';
+    
+            // Fetch subcategory information
+            if (!empty($category['subcategories'])) {
+                foreach ($category['subcategories'] as $subcategoryItem) {
+                    if ($subcategoryItem['uuid'] === $subcategoryId) {
+                        $subcategoryName = $subcategoryItem['name'];
+                        break; // Stop searching once the correct subcategory is found
+                    }
+                }
+            }
+
+            $user = $usersCollection->findOne(['id' => $product_info['made_by_user_id']]);
 
             // Append product data to the $data array
             $data[] = [
@@ -55,6 +69,10 @@ if ($market) {
                 'dislikes' => $product_info['dislike_count'],
                 'category' => $categoryName,
                 'subcategory' => $subcategoryName,
+                'available' => $product_info['available'],
+                'madeByUser' => $user['username'],
+                'userScore' => $user['tokens']['total_tokens'],
+                'dateSubmitted' => $product_info['date_submitted'],
             ];
         }
     }

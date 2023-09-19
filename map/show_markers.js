@@ -9,12 +9,14 @@ fetch("/main-interface/get-markets.php")
     data.forEach((marketData) => {
       const coordinates = marketData.coordinates;
       const name = marketData.name;
-      const market_id = marketData.id;
+      const address = marketData.address;
+      const market_id = marketData.id;    
 
       const marker = L.marker([coordinates[1], coordinates[0]], {
         id: market_id,
         name: name,
-      }).bindPopup(`<b>${name}</b>`);
+        address: address,
+      }).bindPopup(`<b>${name}</b><br><span style="color: #888;">${address}</span>`);
       //console.log(marker.options.name);
 
       markers.push(marker);
@@ -76,8 +78,15 @@ searchInput.addEventListener("input", function () {
     const nameElement = document.createElement("div"); //create result-name and add class
     nameElement.classList.add("result-name");
 
+    // Create a div for the address and add class
+    const addressElement = document.createElement("div");
+    addressElement.classList.add("result-address");
+
     resultItem.appendChild(nameElement); // Append elements to the result item
+    resultItem.appendChild(addressElement);
+
     nameElement.innerHTML = marker.options.name; //initialise with the name of the market
+    addressElement.innerHTML = marker.options.address;
 
     // Add event listener when clicking the resultItem to focus on map
     resultItem.addEventListener("click", () => {
@@ -93,9 +102,11 @@ searchInput.addEventListener("input", function () {
   // ------------ CODE FOR DISPLAYING THE PRODUCTS OF SELECTED MARKET ----------------
 
   function showStoreDetails(marker) {
-    const marketId = marker.options.id;
-    const storeName = marker.options.name;
+    var marketId = marker.options.id;
+    var storeName = marker.options.name;
     console.log(marketId, storeName);
+
+    localStorage.setItem("marketId", marketId);
 
     // Update the store details panel with the store name
     const storeNameElement = document.getElementById("storeName");
@@ -145,6 +156,16 @@ searchInput.addEventListener("input", function () {
           ); // Apply the CSS class
           productCategorySubcategory.textContent = `${product.category}, ${product.subcategory}`;
           productDetails.appendChild(productCategorySubcategory);
+
+          const productAvailable = document.createElement("p");
+          productAvailable.classList.add("product-available");
+          productAvailable.textContent = product.available ? 'In stock' : 'Out of stock';
+
+          if (!product.available) {
+            productAvailable.classList.add("unavailable");
+          }
+
+          productDetails.appendChild(productAvailable);
 
           // Create a paragraph for displaying product likes and dislikes with icons
           const productLikesDislikes = document.createElement("p");
@@ -255,6 +276,12 @@ searchInput.addEventListener("input", function () {
           productLikesDislikes.appendChild(dislikesCount);
 
           productDetails.appendChild(productLikesDislikes);
+
+          const miscInfo = document.createElement("p");
+          miscInfo.classList.add("product-misc-info")
+          miscInfo.textContent = `Submitted by ${product.madeByUser} (${product.userScore}) on ${product.dateSubmitted}`;
+          productDetails.appendChild(miscInfo);
+          
 
           // Create a paragraph for displaying product price
           const productPrice = document.createElement("p");

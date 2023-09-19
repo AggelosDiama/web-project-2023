@@ -15,12 +15,15 @@ if ($_POST["functionality"] == "user_location") {
     update_user_likes($_POST["change_type"]);
 } elseif ($_POST["functionality"] == "user_dislikes") {
     update_user_dislikes($_POST["change_type"]);
+} elseif ($_POST["functionality"] == "current_marker_location") {
+    current_marker_location();
 }
 
+exit();
 
 function update_user_location($latitude, $longitude) {
-    $mongoUrl = 'mongodb://localhost:27017'; // Replace with your MongoDB connection URL
-    $dbName = 'webproject2023'; // Replace with your database name
+    $mongoUrl = 'mongodb://localhost:27017'; 
+    $dbName = 'webproject2023'; 
 
     $client = new MongoDB\Client($mongoUrl);
     $collection = $client->$dbName->users; 
@@ -28,8 +31,8 @@ function update_user_location($latitude, $longitude) {
     $filter = ['email' => $_SESSION["email"]];
     $update = [
         '$set' => [
-            'location.0' => $longitude,
-            'location.1' => $latitude
+            'location.0' => floatval($longitude),
+            'location.1' => floatval($latitude)
         ]
     ];
 
@@ -39,8 +42,8 @@ function update_user_location($latitude, $longitude) {
 }
 
 function update_user_likes($change_type) {
-    $mongoUrl = 'mongodb://localhost:27017'; // Replace with your MongoDB connection URL
-    $dbName = 'webproject2023'; // Replace with your database name
+    $mongoUrl = 'mongodb://localhost:27017'; 
+    $dbName = 'webproject2023'; 
 
     $client = new MongoDB\Client($mongoUrl);
     $collection = $client->$dbName->users; 
@@ -54,27 +57,53 @@ function update_user_likes($change_type) {
 
     
     # Update user likes values
+    $productData = [
+        'marker_id' => intval($_POST["store_id"]),
+        'product_id' => intval($_POST["product_id"])
+    ];
     if ($change_type === "add"){
         $new_like_count = $user_like_count + 1;
-    } else $new_like_count = $user_like_count - 1;
-    
+        # Add the product for user history
+        $update = [
+            '$push' => [
+                'liked_products' => $productData
+            ]
+        ];
+        $collection->updateOne($filter, $update);
+    } else {
+        $new_like_count = $user_like_count - 1;
+        # Remove the user history of liking that product
+        $update = [
+            '$pull' => [
+                'liked_products' => ['product_id' => intval($_POST["product_id"])]
+            ]
+        ];
+        $collection->updateOne($filter, $update);
+    }
     $update = ['$set' => ['likes' => $new_like_count]];
     $collection->updateOne($filter, $update);
-    
+
 
     # Update store likes values
-    // $collection = $client->$dbName->markets; 
-    // $filter = ['email' => $_SESSION["email"]];
-    // $update = ['$set' => ['likes' => $new_like_count]];
-    // $collection->updateOne($filter, $update);
+    $collection = $client->$dbName->markets; 
+    $filter = [
+        'id' => intval($_POST["store_id"]),
+        'products.id' => intval($_POST["product_id"])
+    ];
+    $update = [
+        '$set' => [
+            'products.$.like_count' => $new_like_count 
+        ]
+    ];
+    $collection->updateOne($filter, $update);
     
     echo json_encode("User like count changed");
     exit();
 }
 
 function update_user_dislikes($change_type) {
-    $mongoUrl = 'mongodb://localhost:27017'; // Replace with your MongoDB connection URL
-    $dbName = 'webproject2023'; // Replace with your database name
+    $mongoUrl = 'mongodb://localhost:27017'; 
+    $dbName = 'webproject2023'; 
 
     $client = new MongoDB\Client($mongoUrl);
     $collection = $client->$dbName->users; 
@@ -87,10 +116,32 @@ function update_user_dislikes($change_type) {
     $user_dislike_count = $user_to_change["dislikes"];
 
     
-    # Update user likes values
+    # Update user dislikes values
+    $productData = [
+        'marker_id' => intval($_POST["store_id"]),
+        'product_id' => intval($_POST["product_id"])
+    ];
     if ($change_type === "add"){
         $new_dislike_count = $user_dislike_count + 1;
-    } else $new_dislike_count = $user_dislike_count - 1;
+        # Add the product for user history
+        $update = [
+            '$push' => [
+                'disliked_products' => $productData
+            ]
+        ];
+        $collection->updateOne($filter, $update);
+    } else {
+        $new_like_count = $user_dislike_count - 1;
+        # Remove the user history of liking that product
+        $update = [
+            '$pull' => [
+                'disliked_products' => ['product_id' => intval($_POST["product_id"])]
+            ]
+        ];
+        $collection->updateOne($filter, $update);
+    }
+    $update = ['$set' => ['dislikes' => $new_like_count]];
+    $collection->updateOne($filter, $update);
     
     $update = ['$set' => ['dislikes' => $new_dislike_count]];
     $collection->updateOne($filter, $update);
@@ -99,20 +150,41 @@ function update_user_dislikes($change_type) {
     # Update store likes values
     $collection = $client->$dbName->markets; 
     $filter = [
-        'id' => $_POST["store_id"],
-        'products' => [
-            '$elemMatch' => [
-                'id' => $_POST["product_id"] // Replace with the value you want to match within the array
-            ]
-        ]
+        'id' => intval($_POST["store_id"]),
+        'products.id' => intval($_POST["product_id"])
     ];
     $update = [
         '$set' => [
-            'products.$.dislike_count' => $new_dislike_count // Update the matched element's 'element1'
+            'products.$.dislike_count' => $new_dislike_count
         ]
     ];
     $collection->updateOne($filter, $update);
 
-    echo json_encode($update);
+    echo json_encode("User dislike count changed");
+    exit();
+}
+
+function current_marker_location() {
+    $mongoUrl = 'mongodb://localhost:27017'; 
+    $dbName = 'webproject2023'; 
+
+    $client = new MongoDB\Client($mongoUrl);
+    $collection = $client->$dbName->users; 
+    $users = $collection->find([]); // Retrieve all documents
+
+    foreach ($users as $users) {
+        if ($users['email'] == $_SESSION["email"]) {
+            $latitude = $users['location'][1];
+            $longitude = $users['location'][0];
+            break;
+        }
+    }
+    
+    $user_current_location = [
+        "user_latitude" => $latitude,
+        "user_longitude" => $longitude
+    ];
+
+    echo json_encode($user_current_location);
     exit();
 }

@@ -132,8 +132,11 @@ function createUser($name, $email, $password) {
             "given_tokens"=> 0
         ],
         "likes" => 0,
+        "liked_products" => [],
         "dislikes" => 0,
-        "deals_made"=> 0
+        "disliked_products" => [],
+        "deals_made"=> 0,
+        "product_offers"=> []
     ];
 
     // Insert the user document
@@ -169,7 +172,10 @@ function  loginUser($email, $password) {
             $user_id = $users['id'];
             $username = $users['username'];
             $is_admin = $users['is_admin'];
+            $latitude = $users['location'][1];
+            $longitude = $users['location'][0];
             $email_found = true;
+            break;
         } 
     }
 
@@ -191,6 +197,8 @@ function  loginUser($email, $password) {
         $_SESSION["email"] = $email;
         $_SESSION["username"] = $username;
         $_SESSION["is_admin"] = $is_admin;
+        $_SESSION["latitude"] = $latitude;
+        $_SESSION["longitude"] = $longitude;
         $response = 202;
         echo json_encode($response);
         exit();

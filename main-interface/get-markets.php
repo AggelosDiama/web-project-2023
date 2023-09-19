@@ -20,7 +20,8 @@ foreach ($markets as $market) {
         'coordinates' => [
             $market['coordinates'][0],
             $market['coordinates'][1]
-        ]
+        ],
+        'address' => $market['address']
     ];
 }
 

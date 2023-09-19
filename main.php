@@ -33,6 +33,7 @@
     <title>Make.DisCount</title>
   </head>
   <body>
+  <div id="overlay" class="overlay"></div>
     <div class="page_wrapper">
       <aside class="sidebar">
         <div class="logo-wrapper">
@@ -51,7 +52,7 @@
         <div class="sidebar-container">
           <div id="storeDetails" class="store-details">
             <i class="fa-solid fa-xmark"></i>
-            <button class="submitOffer">Submit an Offer</button>
+            <button class="submitOffer" onclick="openPopup()">Submit an Offer</button>
             <h2 id="storeName">Store Name</h2>
             
             <ul id="productList" class="product-list">
@@ -60,6 +61,35 @@
           </div>
         </div>
       </aside>
+
+      <!-- Popup container -->
+      <div id="offerPopup" class="popup">
+        <div class="popup-content">
+          <span class="popup-close" onclick="closePopup()">&times;</span>
+          <h3>Submit an Offer</h3>
+          <form>
+            <label for="categoryDropdown">Select Category:</label>
+            <select id="categoryDropdown"></select>
+
+            <label for="subcategoryDropdown">Select Subcategory:</label>
+            <select id="subcategoryDropdown"></select>
+
+            <label for="productDropdown">Select Product:</label>
+            <select id="productDropdown"></select>
+                <!-- Options will be added dynamically using JavaScript -->
+            </select>
+            <label for="searchProduct"><br>Or <br><br> Search Product Directly here:</label>
+            <input type="text" id="searchProduct" name="searchProduct" oninput="searchProducts(this.value)">
+            <div id="suggestionList">
+              <!-- Suggestions will be displayed here -->
+            </div> 
+
+            <label for="offerPrice"><br>Offer Price (in €):</label>
+            <input type="number" id="offerPrice" name="offerPrice" required>
+            <button type="button" onclick="submitOffer()">Submit</button>
+          </form>
+        </div>
+      </div>
 
       <div class="avatar-container">
         <div class="user-menu">
@@ -90,7 +120,8 @@
     crossorigin=""
   ></script>
 
-  <script src="./map/map.js"></script>
+  <script src="./map/map.js"></script> 
   <script src="./map/show_markers.js"></script>
+  <script src="./main-interface/popup_function.js"></script>
   <script src="./main-interface/random_functions.js"></script>
 </html>

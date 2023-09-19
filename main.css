@@ -39,7 +39,7 @@ body, html {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-weight: 800;
   text-decoration: none;
-  color: #333;
+  color: #2674bc;
 }
 
 /* Style for the side panel */
@@ -132,10 +132,10 @@ body, html {
   margin-right: 10px; /* Add space between store name and button */
 }
 
-/* Style for the "Submit an Offer" button */
+/* ----------- Style for the "Submit an Offer" button and its popup ----------- */
 .submitOffer {
   padding: 10px 20px; /* Adjust padding as needed */
-  background-color: #007bff; /* Button background color */
+  background-color: #2674bc; /* Button background color */
   color: #fff; /* Button text color */
   border: none;
   border-radius: 5px;
@@ -149,6 +149,118 @@ body, html {
 .submitOffer:hover {
   background-color: #0056b3; /* Change background color on hover */
 }
+
+/* CSS for the popup container */
+
+/* Styles for the overlay */
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+  z-index: 999; /* Place it above other content */
+}
+
+
+.popup {
+  display: none;
+  position: fixed;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  background-color: rgba(0, 0, 0, 0.8);
+  width: 70%; /* Adjust the width as needed */
+  max-width: 400px; /* Set a maximum width for the popup */
+  padding: 20px;
+  border-radius: 8px;
+  color: #fff;
+}
+
+.popup.active {
+  display: block;
+}
+
+.popup-content {
+  text-align: center;
+}
+
+.popup h3 {
+  margin-top: 0;
+}
+
+.popup-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  font-size: 20px;
+  color: #fff;
+}
+
+.popup-close:hover {
+  color: #ccc;
+}
+
+.popup form {
+  margin-top: 20px;
+}
+
+.popup label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.popup select,
+.popup input[type="number"],
+.popup input[type="text"],
+.popup button {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: none;
+  border-radius: 4px;
+}
+
+.popup button {
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+}
+
+.popup button:hover {
+  background-color: #0056b3;
+}
+
+
+#suggestionList {
+  display: none;
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  max-height: 200px; /* Adjust the maximum height as needed */
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  border-top: none;
+}
+
+/* Style for individual suggestion items */
+#suggestionList div {
+  padding: 10px;
+  cursor: pointer;
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+/* Highlight suggestion item on hover */
+#suggestionList div:hover {
+  background-color: #ddd;
+}
+
+
 
 
 .sidebarStoreDetails {
@@ -205,7 +317,8 @@ body, html {
   width: 75%;
 }
 
-.product-category-subcategory {
+.product-category-subcategory,
+.product-misc-info {
   font-size: 15px;
 }
 
@@ -227,7 +340,7 @@ body, html {
 
 /* Style for the filled icon */
 .filled {
-  color: #007bff; /* Change the color to your preferred filled icon color */
+  color: #2674bc; 
 }
 
 /* Style for the outline icon */
@@ -235,6 +348,16 @@ body, html {
   color: #ccc; /* Change the color to your preferred outline icon color */
   cursor: pointer;
 }
+
+.product-available {
+  font-weight: bold;
+}
+
+.product-available.unavailable {
+  font-weight: bold;
+  color: red;
+}
+
 
 
 .product-price {
