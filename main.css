@@ -52,6 +52,49 @@ body, html {
   flex-direction: column;
 }
 
+.search-mode-button {
+  padding: 5px 10px;
+  background-color: #2674bc;
+  margin-bottom: 15px;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+
+.search-mode-button.active {
+  background-color: #0056b3; /
+}
+
+/* Style for the search input */
+.search-input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Style for the category dropdown */
+.category-dropdown {
+  display: none; /* Hide the dropdown by default */
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Hidden class to hide elements */
+.hidden {
+  display: none !important;
+}
+
+
 /* Style for the search bar */
 .searchbar {
   padding: 10px;
@@ -260,9 +303,6 @@ body, html {
   background-color: #ddd;
 }
 
-
-
-
 .sidebarStoreDetails {
   position: absolute;
   padding: 20px;
@@ -306,6 +346,22 @@ body, html {
     transition: background-color 0.3s ease;
   }
 
+  .product-item.unavailable {
+    pointer-events: none;
+  }
+
+  /* .product-item.disabled-product {
+    background: #ccc;
+    opacity: 0.5;
+    pointer-events: none;
+  } */
+
+  .offer-error {
+    font-weight: bold;
+    font-size: large;
+    margin-top: 80px;
+  }
+
   .product-item:hover {
     background-color: #ddd;
   }
@@ -324,18 +380,45 @@ body, html {
 
 .product-likes-dislikes {
   margin-top: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.product-likes-dislikes.unavailable {
+  color: #b8b6b6;
+  pointer-events: none;
 }
 
 .likes-count, 
-.dislike-count{
+.dislikes-count{
   margin-left: 5px;
   margin-right: 10px;
+}
+
+.thumbsup-circle, .thumbsdown-circle {
+  cursor: pointer;
+  background-color: #ccc;
+  border-radius: 50%;
+  border: 1px solid #ccc;
+  padding: 5px;
+  padding-left: 6px;
+  width: 30px;
+  height: 30px;
+  justify-content: center;
+  align-items: center;
 }
 
 .fas.fa-thumbs-up,
 .fas.fa-thumbs-down {
   font-size: 18px; /* Adjust the icon size as needed */
   cursor: pointer;
+}
+
+.fas.fa-thumbs-up.unavailable,
+.fas.fa-thumbs-down.unavailable {
+  color: #b8b6b6 ;
+  opacity: 0.5;
 }
 
 /* Style for the filled icon */
@@ -345,7 +428,7 @@ body, html {
 
 /* Style for the outline icon */
 .outline {
-  color: #ccc; /* Change the color to your preferred outline icon color */
+  color: #333; /* Change the color to your preferred outline icon color */
   cursor: pointer;
 }
 
@@ -357,8 +440,6 @@ body, html {
   font-weight: bold;
   color: red;
 }
-
-
 
 .product-price {
   font-size: 25px;

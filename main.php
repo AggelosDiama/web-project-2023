@@ -39,12 +39,22 @@
         <div class="logo-wrapper">
           <a href="#" class="logo">Make.DisCount</a>
         </div>
-        <input
-          class="searchbar"
-          type="text"
-          placeholder="Search stores"
-          id="searchInput"
-        />
+        <p>Search by: </p>
+        <div class="search-options">
+          <button class="search-mode-button" id="searchByMarketName" class="active">Market Name</button>
+          <button class="search-mode-button" id="searchByProductCategory">Product Category</button>
+        </div>
+        <div class="search-inputs">
+          <input
+            class="searchbar"
+            type="text"
+            placeholder="Search stores"
+            id="searchInput"
+          />
+          <select id="categoryDropdown" class="hidden">
+            <!-- Options for product category will be added dynamically -->
+          </select>
+        </div>
         <div id="searchResults" class="search-results"></div>
       </aside>
       <aside class="sidebarStoreDetails">
@@ -99,8 +109,8 @@
             <p class="username">
               <?php echo $varDumpOutput; ?>
             </p>
-            <button href="#" id="test">Edit Profile</button>
-            <button href="#">Dashboard</button>
+            <button href="main-interface/profile.php" id="test">Edit Profile</button>
+            <button href="main-interface/admin.css">Admin Page</button> <!-- available only to admin users -->
             <form action="./login-register/logout.php" method="post">  
               <button type="submit" name="logout">Log Out</button>
             </form>
@@ -121,6 +131,7 @@
   ></script>
 
   <script src="./map/map.js"></script> 
+  <script src="./map/marker_icons.js"></script>
   <script src="./map/show_markers.js"></script>
   <script src="./main-interface/popup_function.js"></script>
   <script src="./main-interface/random_functions.js"></script>

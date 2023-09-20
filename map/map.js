@@ -1,19 +1,11 @@
 var userMarker;
-var map = L.map("map", {
-  center: [38.246318, 21.735255],
-  zoom: 15,
-});
+var map;
+var osm;
 
-var osm = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-  attribution:
-    '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-});
-osm.addTo(map);
-
-var userIcon = L.icon({
-  iconUrl: "/map/icons8-circle-48.png",
-  iconAnchor: [25, 20],
-});
+// var userIcon = L.icon({
+//   iconUrl: "/map/icons8-circle-48.png",
+//   iconAnchor: [25, 20],
+// });
 
 // Listen for the "dragend" event on the marker
 function updatePopup() {
@@ -61,6 +53,19 @@ function createMarker(lat, long) {
   });
 }
 
+function createMap(lat, long) {
+  map = L.map("map", {
+    center: [lat, long],
+    zoom: 15,
+  });
+
+  osm = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution:
+      '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+  });
+  osm.addTo(map);
+}
+
 // Fetch user coordinates and create the marker
 function get_user_initial_location() {
   var formData = new FormData();
@@ -75,9 +80,7 @@ function get_user_initial_location() {
       var lat = data.user_latitude;
       var long = data.user_longitude;
 
-      console.log(lat);
-      console.log(long);
-      // Create the userMarker and add it to the map
+      createMap(lat, long);
       createMarker(lat, long);
     })
     .catch((error) => {
@@ -85,6 +88,22 @@ function get_user_initial_location() {
     });
 }
 
-// Call get_user_initial_location after map is initialized
-// map.on("load", get_user_initial_location);
+function update_products() {
+  var formData = new FormData();
+  fetch("/main-interface/check-offer-date.php", {
+    method: "POST",
+    body: formData,
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      if (data == 200) {
+        console.log("Products have been updated");
+      } else console.log("There was an error updating the products");
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+}
+
 get_user_initial_location();

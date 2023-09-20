@@ -1,0 +1,142 @@
+ /* Add your CSS styles here */
+ body {
+    font-family: Arial, sans-serif;
+}
+
+header {
+    background-color: #f1f1f1;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+}
+
+
+.logo {
+    font-size: 24px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: 800;
+    text-decoration: none;
+    color: #2674bc;
+  }
+
+#container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+}
+
+.upload-section {
+    margin-bottom: 20px;
+}
+
+.upload-label {
+    font-weight: bold;
+}
+
+/* Apply styles to submit buttons */
+input[type="file"] {
+    display: none; /* Hide the file input */
+}
+
+.upload-button {
+    padding: 10px 20px; /* Adjust padding as needed */
+    background-color: #2674bc; /* Button background color */
+    color: #fff; /* Button text color */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px; /* Button text size */
+    transition: background-color 0.3s ease; /* Add hover effect */
+}
+
+/* Style hover effect for submit buttons */
+.upload-button:hover {
+    background-color: #135691; /* Change background color on hover */
+}
+
+.avatar-container {
+    position: absolute;
+    top: 65px;
+    right: 15px;
+    margin: 10px;
+    z-index: 2;
+  }
+  
+    /* Styles for the user menu */
+  .user-menu {
+    cursor: pointer;
+    background-color: #333;
+    border-radius: 50%;
+    padding: 5px;
+    padding-left: 5px;
+    width: 60px;
+    height: 60px;
+    justify-content: center;
+    align-items: center; 
+   }
+  
+   .user-menu i {
+    color: #f9f9f9;
+    margin-bottom: 10px;
+   }
+  
+   .user-menu:hover {
+    color: #333;
+    background-color: #f9f9f9;
+   }
+  
+   .user-menu:hover i {
+    color: #333;
+   }
+  
+  /* Style for the avatar icon */
+  #avatar-icon {
+    font-size: 32px;
+    position: absolute;
+    margin-left: 14px;
+    margin-top: 10px;
+    cursor: pointer;
+    z-index: 2;
+  }
+  
+  /* Dropdown menu styles */
+  /* Initial CSS to hide the dropdown menu */
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    right: 25px;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    border-radius: 25px;
+    z-index: 2;
+    align-items: center;
+  }
+  
+  /* Style for dropdown menu items */
+  .dropdown-content button, .dropdown-content p {
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    border: none;
+    cursor: pointer;
+    color: #333;
+  }
+  
+  .dropdown-content button {
+    background-color: #f9f9f9;
+    
+  }
+  
+  /* Highlight dropdown menu items on hover */
+  .dropdown-content button:hover,
+  .dropdown-content p:hover {
+    background-color: #ddd;
+  }
+  
+  /* Show the dropdown menu on hover */
+  .user-menu:hover .dropdown-content {
+    display: block;
+  }

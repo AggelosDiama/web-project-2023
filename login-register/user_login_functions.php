@@ -88,8 +88,8 @@ function passwordStrength($password) {
 
 function emailExists($email) {
     
-    $mongoUrl = 'mongodb://localhost:27017'; // Replace with your MongoDB connection URL
-    $dbName = 'webproject2023'; // Replace with your database name
+    $mongoUrl = 'mongodb://localhost:27017'; 
+    $dbName = 'webproject2023';
 
     $client = new MongoDB\Client($mongoUrl);
     $collection = $client->$dbName->users; 
@@ -107,8 +107,8 @@ function emailExists($email) {
 
 function createUser($name, $email, $password) {
     
-    $mongoUrl = 'mongodb://localhost:27017'; // Replace with your MongoDB connection URL
-    $dbName = 'webproject2023'; // Replace with your database name
+    $mongoUrl = 'mongodb://localhost:27017'; 
+    $dbName = 'webproject2023'; 
 
     $client = new MongoDB\Client($mongoUrl);
     $collection = $client->$dbName->users; 
@@ -157,8 +157,8 @@ function createUser($name, $email, $password) {
 
 function  loginUser($email, $password) {
     
-    $mongoUrl = 'mongodb://localhost:27017'; // Replace with your MongoDB connection URL
-    $dbName = 'webproject2023'; // Replace with your database name
+    $mongoUrl = 'mongodb://localhost:27017'; 
+    $dbName = 'webproject2023'; 
 
     $client = new MongoDB\Client($mongoUrl);
     $collection = $client->$dbName->users; 

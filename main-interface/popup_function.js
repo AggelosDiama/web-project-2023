@@ -104,6 +104,19 @@ let suggestions = [];
 const productSearchInput = document.getElementById("searchProduct");
 const suggestionList = document.getElementById("suggestionList");
 
+/// Add event listeners for input focus and blur
+productSearchInput.addEventListener("focus", () => {
+  // When input is focused, show suggestions
+  searchProducts(productSearchInput.value);
+});
+
+productSearchInput.addEventListener("blur", () => {
+  // When input loses focus, hide suggestions
+  suggestionList.style.display = "none";
+});
+
+// Rest of your code remains unchanged
+
 // Function to search products and display suggestions
 function searchProducts(userInput) {
   if (userInput) {
@@ -156,7 +169,7 @@ suggestionList.addEventListener("click", (e) => {
   }
 });
 
-// ... Your existing code ...
+
 
 // Function to submit the offer
 function submitOffer() {

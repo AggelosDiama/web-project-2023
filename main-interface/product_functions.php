@@ -21,7 +21,7 @@ function user_insert_offer() {
 
     $selectedProduct = $_POST['product_id'];
     $offerPrice = $_POST['offered_price'];
-    $store_id = $_POST['store_id'];
+    $store_id = intval($_POST['store_id']);
     $previous_price = 0;
 
     // Find market coordinates and if the product already exists
@@ -73,7 +73,9 @@ function user_insert_offer() {
         ];
         $update = [
             '$set' => [
-                'products.$.price' => $offerPrice 
+                'products.$.price' => $offerPrice,
+                'products.$.made_by_user_id' => $_SESSION["user_id"],
+                'products.$.date_submitted' => date("Y-m-d")
             ]
         ];
         $collection->updateOne($filter, $update);
@@ -86,11 +88,11 @@ function user_insert_offer() {
             'id' => intval($selectedProduct),
             'price' => $offerPrice,
             'criteria_check' => true,
-            'date_submitted' => date("YYYY-mm-dd"),
+            'date_submitted' => date("Y-m-d"),
             'like_count' => 0,
             'dislike_count' => 0,
             'available' => true,
-            'made_by_user_id' => intval($_SESSION["id"]),
+            'made_by_user_id' => intval($_SESSION["user_id"]),
         ];
         $update = [
             '$push' => [
@@ -106,7 +108,7 @@ function user_insert_offer() {
     $productData = [
         'product_id' => intval($selectedProduct),
         'store_id' => intval($store_id),
-        'date_submitted' => date("YYYY-mm-dd")
+        'date_submitted' => date("Y-m-d")
     ];
     $update = [
         '$push' => [
@@ -144,6 +146,6 @@ function calculateDistance($lat1, $lon1, $lat2, $lon2) {
 
 function addPointsToUser($previous_price, $current_price) {
     if ($current_price < 0.2*$previous_price) {
-        
+        return 0;
     }
 }

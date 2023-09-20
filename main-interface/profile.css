@@ -1,0 +1,56 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+header {
+    background-color: #f1f1f1;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+}
+
+.logo {
+    font-size: 24px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: 800;
+    text-decoration: none;
+    color: #2674bc;
+  }
+
+#container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+form {
+    margin-bottom: 20px;
+}
+
+input[type="submit"] {
+    padding: 10px 20px;
+    background-color: #2674bc;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    margin-bottom: 20px
+}
+
+/* Style hover effect for submit buttons */
+input[type="submit"]:hover {
+    background-color: #135691; /* Change background color on hover */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #ccc;
+}
