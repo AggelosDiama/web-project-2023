@@ -209,7 +209,7 @@ searchInput.addEventListener("input", function () {
         if (products.length > 0) {
           products.forEach((product) => {
             const productItem = document.createElement("div");
-            productItem.classList.add("product-item"); // Apply the CSS class
+            productItem.classList.add("product-item"); 
             productList.appendChild(productItem);
   
             // Create a container for the product details
@@ -219,7 +219,7 @@ searchInput.addEventListener("input", function () {
   
             // Create a paragraph for displaying product name
             const productName = document.createElement("p");
-            productName.classList.add("product-name"); // Apply the CSS class
+            productName.classList.add("product-name"); 
             productName.textContent = product.name;
             productDetails.appendChild(productName);
   
@@ -241,7 +241,7 @@ searchInput.addEventListener("input", function () {
   
             // Create a paragraph for displaying product likes and dislikes with icons
             const productLikesDislikes = document.createElement("div");
-            productLikesDislikes.classList.add("product-likes-dislikes"); // Apply the CSS class
+            productLikesDislikes.classList.add("product-likes-dislikes"); 
   
   
             // Create a span for the thumbs-up (like) icon
@@ -269,7 +269,7 @@ searchInput.addEventListener("input", function () {
                 }
                 // Increment the number of likes and update the database here
                 product.likes += 1;
-                //updateDatabase(product.id, 'likes', product.likes); // Replace with your update function
+                
   
                 formData.append("change_type", "add");
               } else {
@@ -277,7 +277,7 @@ searchInput.addEventListener("input", function () {
                 thumbsUpIcon.classList.add("outline");
                 // Decrement the number of likes and update the database here (if needed)
                 product.likes -= 1;
-                //updateDatabase(product.id, 'likes', product.likes); // Replace with your update function
+                
                 formData.append("change_type", "remove");
               }
   
@@ -325,14 +325,14 @@ searchInput.addEventListener("input", function () {
   
                 // Increment the number of dislikes and update the database here
                 product.dislikes += 1;
-                //updateDatabase(product.id, 'dislikes', product.dislikes); // Replace with your update function
+                
                 formData.append("change_type", "add");
               } else {
                 thumbsDownIcon.classList.remove("filled");
                 thumbsDownIcon.classList.add("outline");
                 // Decrement the number of dislikes and update the database here (if needed)
                 product.dislikes -= 1;
-                //updateDatabase(product.id, 'dislikes', product.dislikes); // Replace with your update function
+                
                 formData.append("change_type", "remove");
               }
               // Update the like count to the database
@@ -389,7 +389,7 @@ searchInput.addEventListener("input", function () {
   
             // Create a paragraph for displaying product price
             const productPrice = document.createElement("p");
-            productPrice.classList.add("product-price"); // Apply the CSS class
+            productPrice.classList.add("product-price"); 
             productPrice.textContent = `${product.price}€`;
             productDetails.appendChild(productPrice);
           });

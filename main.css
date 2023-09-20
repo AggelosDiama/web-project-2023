@@ -63,7 +63,6 @@ body, html {
   transition: background-color 0.3s ease;
 }
 
-
 .search-mode-button.active {
   background-color: #0056b3; /
 }
@@ -116,7 +115,7 @@ body, html {
 
 .result-item {
   display: flex;
-  flex-direction: column; /* Stack elements vertically */
+  flex-direction: column; 
   gap: 5px;
   cursor: pointer;
   padding: 15px;
@@ -159,6 +158,7 @@ body, html {
   display: flex;
   flex-direction: column;
 } */
+
 .fa-xmark {
   cursor: pointer;
 }
@@ -172,28 +172,29 @@ body, html {
 #storeName {
   font-size: 24px;
   font-weight: bold;
-  margin-right: 10px; /* Add space between store name and button */
+  margin-right: 10px; 
 }
 
 /* ----------- Style for the "Submit an Offer" button and its popup ----------- */
+
 .submitOffer {
-  padding: 10px 20px; /* Adjust padding as needed */
-  background-color: #2674bc; /* Button background color */
-  color: #fff; /* Button text color */
+  padding: 10px 20px; 
+  background-color: #2674bc; 
+  color: #fff; 
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 16px; /* Button text size */
-  transition: background-color 0.3s ease; /* Add hover effect */
+  font-size: 16px; 
+  transition: background-color 0.3s ease; 
   float: right;
   margin-top: 32px;
 }
 
 .submitOffer:hover {
-  background-color: #0056b3; /* Change background color on hover */
+  background-color: #0056b3; 
 }
 
-/* CSS for the popup container */
+/* -----------  CSS for the popup container -----------  */
 
 /* Styles for the overlay */
 .overlay {
@@ -203,8 +204,8 @@ body, html {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
-  z-index: 999; /* Place it above other content */
+  background-color: rgba(0, 0, 0, 0.5); 
+  z-index: 999; 
 }
 
 
@@ -216,8 +217,8 @@ body, html {
   transform: translate(-50%, -50%);
   z-index: 1000;
   background-color: rgba(0, 0, 0, 0.8);
-  width: 70%; /* Adjust the width as needed */
-  max-width: 400px; /* Set a maximum width for the popup */
+  width: 70%; 
+  max-width: 400px; 
   padding: 20px;
   border-radius: 8px;
   color: #fff;
@@ -284,7 +285,7 @@ body, html {
   position: absolute;
   z-index: 1;
   width: 100%;
-  max-height: 200px; /* Adjust the maximum height as needed */
+  max-height: 200px; 
   overflow-y: auto;
   border: 1px solid #ccc;
   border-top: none;
@@ -316,7 +317,7 @@ body, html {
   background-color: #f1f1f1;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 25px;
-  transition: left 0.3s ease; /* Add a smooth transition for left property */
+  transition: left 0.3s ease; 
   z-index: 2;
   overflow-y: auto;
   scroll-behavior: smooth;
@@ -411,7 +412,7 @@ body, html {
 
 .fas.fa-thumbs-up,
 .fas.fa-thumbs-down {
-  font-size: 18px; /* Adjust the icon size as needed */
+  font-size: 18px; 
   cursor: pointer;
 }
 
@@ -428,7 +429,7 @@ body, html {
 
 /* Style for the outline icon */
 .outline {
-  color: #333; /* Change the color to your preferred outline icon color */
+  color: #333; 
   cursor: pointer;
 }
 
@@ -455,8 +456,8 @@ body, html {
 .avatar-container {
   position: absolute;
   top: 0;
-  right: 0; /* Position it at the top-right corner */
-  margin: 10px; /* Add some margin for spacing */
+  right: 0; 
+  margin: 10px; 
   z-index: 2;
 }
 
