@@ -79,6 +79,7 @@ function user_insert_offer() {
             ]
         ];
         $collection->updateOne($filter, $update);
+        echo json_encode("SKATOULES");
         addPointsToUser($previous_price, $offerPrice);
     } else {
         //  Add the product offer to the store
@@ -117,7 +118,7 @@ function user_insert_offer() {
     ];
     $collection->updateOne($filter, $update);
     
-    echo json_encode($productFound);
+    
     exit();
 }
 
@@ -145,7 +146,22 @@ function calculateDistance($lat1, $lon1, $lat2, $lon2) {
 }
 
 function addPointsToUser($previous_price, $current_price) {
-    if ($current_price < 0.2*$previous_price) {
-        return 0;
+    $mongoUrl = 'mongodb://localhost:27017'; 
+    $dbName = 'webproject2023'; 
+
+    $client = new MongoDB\Client($mongoUrl);
+
+    if ($current_price < 0.8*$previous_price) {
+        $collection = $client->$dbName->users; 
+        $filter = ['email' => $_SESSION["email"]];
+
+        $update = [
+            '$inc' => [
+                'tokens.total_tokens' => 20,
+                'tokens.given_tokens' => 20,
+            ],
+        ];
+
+        $collection->updateOne($filter, $update);
     }
 }

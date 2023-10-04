@@ -115,7 +115,7 @@ productSearchInput.addEventListener("blur", () => {
   suggestionList.style.display = "none";
 });
 
-// Rest of your code remains unchanged
+
 
 // Function to search products and display suggestions
 function searchProducts(userInput) {
@@ -166,8 +166,11 @@ suggestionList.addEventListener("click", (e) => {
     productSearchInput.value = e.target.textContent;
     // Hide the suggestion list
     suggestionList.style.display = "none";
+    // Prevent the default click behavior (e.g., following a link)
+    e.preventDefault();
   }
 });
+
 
 
 
@@ -193,7 +196,8 @@ function submitOffer() {
   })
     .then((response) => response.json())
     .then((data) => {
-      if(data=500) {
+      console.log(data);
+      if(data == 500) {
         alert("User is too far away");
       }
     })

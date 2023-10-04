@@ -106,74 +106,72 @@
 <script>
     $(document).ready(function () {
     // Function to compare dates, considering null dates as the latest
-    function compareDates(a, b) {
-        if (!a.date_submitted) return 1;
-        if (!b.date_submitted) return -1;
-        return new Date(a.date_submitted) - new Date(b.date_submitted);
-    }
+function compareDates(a, b) {
+    if (!a.date_submited) return 1;
+    if (!b.date_submited) return -1;
+    return new Date(a.date_submited) - new Date(b.date_submited);
+}
 
-    // Function to populate the User History table
-    function populateUserHistoryTable(data) {
-        var tableBody = document.getElementById("userHistoryTableBody");
+// Function to fill the user history table
+function fillUserHistoryTable(dataArray, tableBody) {
+    // Clear existing table rows
 
-        // Clear existing table rows
-        tableBody.innerHTML = "";
+    // Iterate through the dataArray
+    dataArray.forEach((item) => {
+        // Create a new table row
+        const row = document.createElement("tr");
 
-        // Check if data is an array before sorting
-        if (Array.isArray(data)) {
-            // Sort the data by date
-            data.sort(compareDates);
+        // Create table cells for each column
+        const actionCell = document.createElement("td");
+        actionCell.textContent = item.action;
 
-            // Loop through the sorted JSON data and create table rows
-            for (var i = 0; i < data.length; i++) {
-                var row = document.createElement("tr");
+        const marketCell = document.createElement("td");
+        marketCell.textContent = item.market_name;
 
-                var actionCell = document.createElement("td");
-                actionCell.textContent = data[i].action;
+        const productCell = document.createElement("td");
+        productCell.textContent = item.product_name;
 
-                var productCell = document.createElement("td");
-                productCell.textContent = data[i].product_name;
+        const dateCell = document.createElement("td");
+        dateCell.textContent = item.date_submited;
 
-                var marketCell = document.createElement("td");
-                marketCell.textContent = data[i].market_name;
+        // Append cells to the row
+        row.appendChild(actionCell);
+        row.appendChild(marketCell);
+        row.appendChild(productCell);
+        row.appendChild(dateCell);
 
-                var dateCell = document.createElement("td");
-                dateCell.textContent = data[i].date_submitted;
-
-                row.appendChild(actionCell);
-                row.appendChild(productCell);
-                row.appendChild(marketCell);
-                row.appendChild(dateCell);
-
-                tableBody.appendChild(row);
-            }
-        } else {
-            // Handle the case where data is not an array
-            console.error("Data is not an array:", data);
-            // You may want to display an error message or handle it differently
-        }
-    }
-
-    // Get the user email from the session
-    var userEmail = "<?php echo $_SESSION['user_email']; ?>";
-
-    // Construct the AJAX URL with the user email
-    var ajaxUrl = "http://webproject2023.ddns.net/main-interface/get-profile-info.php?userEmail=" + userEmail;
-
-    // Make an AJAX request to retrieve JSON data
-    $.ajax({
-        type: "GET",
-        url: ajaxUrl,
-        dataType: "json",
-        success: function (data) {
-            // Call the function to populate and sort the User History table
-            populateUserHistoryTable(data);
-        },
-        error: function (xhr, status, error) {
-            console.error("An error occurred while retrieving data.");
-            console.error(xhr.responseText);
-        },
+        // Append the row to the table body
+        tableBody.appendChild(row);
     });
+}
+
+// Get the user email from the session
+var userEmail = "<?php echo $_SESSION['email']; ?>";
+
+// Assuming you have a table body element with the id "userHistoryTableBody"
+const userHistoryTableBody = document.getElementById("userHistoryTableBody");
+
+// Fetch user history data
+fetch(`/main-interface/get-profile-info.php?userEmail=${userEmail}`)
+  .then((response) => response.json())
+  .then((data) => {
+    console.log(data);
+
+    // Sort the data by date
+    data.liked_products.sort(compareDates);
+    data.disliked_products.sort(compareDates);
+    data.product_offers.sort(compareDates);
+
+    // Fill the user history table with liked products data
+    fillUserHistoryTable(data.liked_products, userHistoryTableBody);
+    fillUserHistoryTable(data.disliked_products, userHistoryTableBody);
+    fillUserHistoryTable(data.product_offers, userHistoryTableBody);
+  })
+  .catch((error) => {
+    console.error("Error:", error);
+  });
+
+   
 });
 
 </script>

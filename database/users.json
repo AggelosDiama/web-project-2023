@@ -85,7 +85,7 @@
   },
   {
     "name": "Akis",
-    "password": "akaros1@",
+    "password": "Akaros1@",
     "email": "akis@mail.com",
     "location": [21.7334, 38.2449],
     "tokens": {
@@ -99,7 +99,7 @@
   },
   {
     "name": "Ntakis",
-    "password": "Ntakaros@",
+    "password": "Ntakaros1@",
     "email": "ntakis@mail.com",
     "location": [21.7381, 38.2422],
     "tokens": {
@@ -129,6 +129,20 @@
     "name": "Manolis",
     "password": "Manolakis1@",
     "email": "manolis@mail.com",
+    "location": [21.7385, 38.2344],
+    "tokens": {
+      "total_tokens": "",
+      "this_month_tokens": "",
+      "last_month_tokens": "",
+      "given_tokens": ""
+    },
+    "likes": "",
+    "deals_made": ""
+  },
+  {
+    "name": "Fotis",
+    "password": "Fotis123@",
+    "email": "fotis@mail.com",
     "location": [21.7385, 38.2344],
     "tokens": {
       "total_tokens": "",

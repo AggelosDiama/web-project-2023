@@ -7,7 +7,7 @@ require '../vendor/autoload.php';
 $mongoUrl = 'mongodb://localhost:27017';
 $dbName = 'webproject2023';
 
-$userEmail = isset($_GET['userEmail']) ? $_GET['userEmail'] : null;
+$userEmail = isset($_GET["userEmail"]) ? $_GET["userEmail"] : null;
 //$userEmail = "lemon@mail.com";
 
 if (!$userEmail) {

@@ -101,7 +101,6 @@
                 <div class="form_input">
                   <input type="password" id="password_conf" 
                     title="Password must match the password above." 
-                    placeholder="Enter Password" />
                   placeholder="Confrim your Password" />
                 </div>
                 <div class="form_btn_container">

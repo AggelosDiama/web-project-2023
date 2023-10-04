@@ -219,6 +219,27 @@ function fetchResults(event) {
       //console.log('Name:', nameElement.textContent);
     });
   }
+
+  // Delete button functionallity
+  function deleteOffer(marketId){
+
+    var marketId = marker.options.id;
+
+    var formData = new FormData();
+    formData.append("functionality", "deleteOffer"); 
+    formData.append("store_id", marketId);
+    fetch("/map/map_functions.php", {
+      method: "POST",
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if(data == 500) alert("Could not delete offer.");
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  }
   
 
   // ------------ CODE FOR DISPLAYING THE PRODUCTS OF SELECTED MARKET ----------------
@@ -226,7 +247,6 @@ function fetchResults(event) {
   function showStoreDetails(marker) {
     var marketId = marker.options.id;
     var storeName = marker.options.name;
-    console.log(marketId, storeName);
 
     localStorage.setItem("marketId", marketId);
 
@@ -293,6 +313,11 @@ function fetchResults(event) {
             productDetails.appendChild(productName);
 
             //Create delete product button that will be visible only to admin
+            const deleteButton = document.createElement("button");
+            deleteButton.classList.add("delete-button");
+            deleteButton.textContent = 'Delete Product';
+            productDetails.appendChild(deleteButton);
+
             var formData = new FormData();
             formData.append("functionality", "check_if_admin");
             fetch("/map/map_functions.php", {
@@ -302,17 +327,31 @@ function fetchResults(event) {
               .then((response) => response.json())
               .then((data) => {      
                 if (data == 1) {
-                  const deleteButton = document.createElement("button");
-                  deleteButton.classList.add("delete-button");
-                  deleteButton.textContent = 'Delete Product';
-                  productDetails.appendChild(deleteButton);
+                  deleteButton.classList.add("hide-button");
                 }
               })
               .catch((error) => {
                 console.error("Error:", error);
               });
             
-  
+            deleteButton.addEventListener("click", () => {
+              var formData = new FormData();
+              formData.append("functionality", "delete_offer");
+              formData.append("store_id", marketId);
+              formData.append("product_id", product.id);
+              fetch("/map/map_functions.php", {
+                method: "POST",
+                body: formData,
+              })
+                .then((response) => {
+                  alert("Product has been deleted")
+                  location.reload();
+                })
+                .catch((error) => {
+                  console.error("Error:", error);
+                });  
+            });
+
             // Create a paragraph for displaying product category and subcategory
             const productCategorySubcategory = document.createElement("p");
             productCategorySubcategory.classList.add(

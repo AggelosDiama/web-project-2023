@@ -352,7 +352,7 @@ body, html {
   display: flex;
   flex-direction: row; 
   gap: 5px;
-  padding: 15px;
+  padding: 5px 5px 5px 15px;
   border-bottom: 2px solid #b8b6b6;
   transition: background-color 0.3s ease;
 }
@@ -381,7 +381,11 @@ body, html {
   width: 75%;
 }
 
-.product-category-subcategory,
+.product-category-subcategory {
+  font-size: 15px;
+  margin-top: -15px;
+}
+
 .product-misc-info {
   font-size: 15px;
 }
@@ -440,8 +444,6 @@ body, html {
   cursor: pointer;  
 }
 
-/* ------------------------------------------------------ */
-
 .product-stock-info {
   display: flex;
   align-items: center;
@@ -487,8 +489,6 @@ body, html {
   text-decoration: underline;
 } */
 
-/* ------------------------------------------------------ */
-
 
 .product-available {
   font-weight: bold;
@@ -508,17 +508,24 @@ body, html {
 }
 
 .delete-button {
+  position: absolute;
+  right: 35px;
+  top: 35px;
   padding: 5px 10px 5px 10px;
   cursor: pointer;
   border: none;
   border-radius: 25px;
   background-color: #df3a3a;
   color: white;
-  font-weight: bold;
+  font-weight: bold;  
 }
 
 .delete-button:hover {
   opacity: 0.8;
+}
+
+.delete-button .hide-button {
+  display: none;
 }
 
 /* ----- Avatar at the top right Styling ----- */

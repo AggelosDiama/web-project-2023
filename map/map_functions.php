@@ -21,6 +21,8 @@ if ($_POST["functionality"] == "user_location") {
     check_user_distance();
 } elseif ($_POST["functionality"] == "product_availability") {
     update_product_availability($_POST["availability"]);
+} elseif ($_POST["functionality"] == "delete_offer") {
+    deleteOffer();
 } elseif ($_POST["functionality"] == "check_if_admin") {
     if ($_SESSION["is_admin"]) {
         $responce = 1;
@@ -284,4 +286,25 @@ function calculateDistance($lat1, $lon1, $lat2, $lon2) {
     $distance = $radius * $c;
     $distance_in_meters = intval($distance * 1000); 
     return $distance_in_meters;   
+}
+
+function deleteOffer() {
+    $mongoUrl = 'mongodb://localhost:27017'; 
+    $dbName = 'webproject2023'; 
+
+    $client = new MongoDB\Client($mongoUrl);
+    $collection = $client->$dbName->markets; 
+
+    $filter = [
+        'id' => intval($_POST["store_id"])
+    ];
+    $update = [
+            '$pull' => [
+                'products' => ['id' => intval($_POST["product_id"])]
+            ]
+        ];
+    $collection->updateOne($filter, $update);
+
+    echo json_encode("Offer deleted");
+    exit();
 }
