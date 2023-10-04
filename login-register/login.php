@@ -3,7 +3,7 @@
   session_start();
 
   if(isset($_SESSION['user_id'])) {
-    header('Location: http://webproject2023.ddns.net/main.php');
+    header('Location: http://webproject2023.ddns.net/index.php');
   }
 
 ?>
@@ -44,7 +44,7 @@
             data: { data: ajaxString },
             success: function(response) {
               if (response == 202) {
-                window.location.href = "../main.php";
+                window.location.href = "../index.php";
               } else {
                 alert(response);
               }

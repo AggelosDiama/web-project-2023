@@ -6,6 +6,7 @@
     header("Location: http://webproject2023.ddns.net/login-register/login.php");
   }
   $username = $_SESSION['username'];
+  $admin = $_SESSION['is_admin'];
   ob_start();
 
   print_r($username);
@@ -25,9 +26,9 @@
     />
     <link rel="stylesheet" href="main.css" />
     <link
-  rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-/>
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
 
 
     <title>Make.DisCount</title>
@@ -37,11 +38,11 @@
     <div class="page_wrapper">
       <aside class="sidebar">
         <div class="logo-wrapper">
-          <a href="#" class="logo">Make.DisCount</a>
+          <a href="index.php" class="logo">Make.DisCount</a>
         </div>
         <p>Search by: </p>
         <div class="search-options">
-          <button class="search-mode-button" id="searchByMarketName" class="active">Market Name</button>
+          <button class="search-mode-button active" id="searchByMarketName">Market Name</button>
           <button class="search-mode-button" id="searchByProductCategory">Product Category</button>
         </div>
         <div class="search-inputs">
@@ -51,7 +52,8 @@
             placeholder="Search stores"
             id="searchInput"
           />
-          <select id="categoryDropdown" class="hidden">
+          <select id="categorySearchDropdown" class="hidden">
+            <option value="" disabled selected>Choose a Product Category</option>
             <!-- Options for product category will be added dynamically -->
           </select>
         </div>
@@ -62,7 +64,7 @@
         <div class="sidebar-container">
           <div id="storeDetails" class="store-details">
             <i class="fa-solid fa-xmark"></i>
-            <button class="submitOffer" onclick="openPopup()">Submit an Offer</button>
+            <button id="submitOffer" onclick="openPopup()">Submit an Offer</button>
             <h2 id="storeName">Store Name</h2>
             
             <ul id="productList" class="product-list">
@@ -79,13 +81,18 @@
           <h3>Submit an Offer</h3>
           <form>
             <label for="categoryDropdown">Select Category:</label>
-            <select id="categoryDropdown"></select>
+            <select id="categoryDropdown">
+              <option value="" disabled selected>Choose a Product Category</option>
+            </select>
 
             <label for="subcategoryDropdown">Select Subcategory:</label>
-            <select id="subcategoryDropdown"></select>
+            <select id="subcategoryDropdown">
+              <option value="" disabled selected>Choose a Product Subcategory</option>
+            </select>
 
             <label for="productDropdown">Select Product:</label>
             <select id="productDropdown"></select>
+                <!-- <option value="" disabled selected>Choose a Product</option> -->
                 <!-- Options will be added dynamically using JavaScript -->
             </select>
             <label for="searchProduct"><br>Or <br><br> Search Product Directly here:</label>
@@ -108,9 +115,10 @@
           <div class="dropdown-content">
             <p class="username">
               <?php echo $varDumpOutput; ?>
+              <?php if ($admin) { echo " (Admin)"; } ?>
             </p>
-            <button href="main-interface/profile.php" id="test">Edit Profile</button>
-            <button href="main-interface/admin.css">Admin Page</button> <!-- available only to admin users -->
+            <a href="main-interface/profile.php" id="test">Edit Profile</a>
+            <?php if ($admin) { echo '<a href="main-interface/admin.css">Admin Page</a>'; } ?> <!-- available only to admin users -->
             <form action="./login-register/logout.php" method="post">  
               <button type="submit" name="logout">Log Out</button>
             </form>

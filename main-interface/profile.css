@@ -7,6 +7,25 @@ header {
     color: white;
     text-align: center;
     padding: 10px 0;
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+}
+
+.go-back {
+    text-decoration: none;
+    color: #2674bc;
+    margin-left: 25px;
+}
+
+.go-back:hover {
+    text-decoration: underline;
+}
+
+.logo-container {
+    flex-grow: 1;
+    text-align: center; 
+    margin-right: 100px;
 }
 
 .logo {
@@ -15,7 +34,7 @@ header {
     font-weight: 800;
     text-decoration: none;
     color: #2674bc;
-  }
+}
 
 #container {
     max-width: 600px;
@@ -27,7 +46,13 @@ form {
     margin-bottom: 20px;
 }
 
-input[type="submit"] {
+input[type="text"], input[type="password"]  {
+    border-radius: 25px;
+    padding: 5px 8px 5px 8px;
+    border: 1px solid #333; 
+}
+
+#change_username_button, #change_password_button {
     padding: 10px 20px;
     background-color: #2674bc;
     color: #fff;
@@ -39,8 +64,9 @@ input[type="submit"] {
     margin-bottom: 20px
 }
 
+
 /* Style hover effect for submit buttons */
-input[type="submit"]:hover {
+#change_username_button:hover,  #change_password_button:hover {
     background-color: #135691; /* Change background color on hover */
 }
 

@@ -37,6 +37,12 @@ if ($user_data["functionality"] == "register"){
         echo json_encode($response);
         exit();
     }
+
+    if ($username == "") {
+        $response = "Username cannot be empty";
+        echo json_encode($response);
+        exit();
+    }
     
     createUser($username, $email, $password);
 

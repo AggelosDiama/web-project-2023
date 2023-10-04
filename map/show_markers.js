@@ -1,6 +1,7 @@
 // ------------ CODE FOR DISPLAYING FETCHING LOCATIONS---------------
 
 const markers = []; // Define an empty array to store markets
+var is_user_close = 0;
 
 fetch("/main-interface/get-markets.php")
   .then((response) => response.json())
@@ -29,6 +30,10 @@ fetch("/main-interface/get-markets.php")
         map.addLayer(marker);
       }
       //console.log(marker.options.name);
+      marker.addEventListener("click", () => {
+        showStoreDetails(marker);
+        toggleSidebar(true);
+      });
 
       markers.push(marker);
     });
@@ -59,8 +64,8 @@ const searchResults = document.getElementById("searchResults");
 
 const searchByMarketNameButton = document.getElementById("searchByMarketName");
 const searchByProductCategoryButton = document.getElementById("searchByProductCategory");
-const categoryDropdown = document.getElementById("categoryDropdown");
-const searchFlag = 1;
+const categorySearchDropdown = document.getElementById("categorySearchDropdown");
+var searchFlag = 1;
 
 searchByMarketNameButton.addEventListener("click", () => {
   // Toggle active class for buttons
@@ -69,7 +74,7 @@ searchByMarketNameButton.addEventListener("click", () => {
 
   // Show market name input, hide category dropdown
   searchInput.classList.remove("hidden");
-  categoryDropdown.classList.add("hidden");
+  categorySearchDropdown.classList.add("hidden");
   searchFlag = 1;
 });
 
@@ -80,22 +85,55 @@ searchByProductCategoryButton.addEventListener("click", () => {
 
   // Show category dropdown, hide market name input
   searchInput.classList.add("hidden");
-  categoryDropdown.classList.remove("hidden");
+  categorySearchDropdown.classList.remove("hidden");
   searchFlag = 0;
+
+  // Clear existing options in the categorySearchDropdown, but keep the default option
+  const options = categorySearchDropdown.querySelectorAll("option");
+  options.forEach((option) => {
+    if (!option.disabled) {
+      option.remove();
+    }
+  });
+
+  fetch(
+    "http://webproject2023.ddns.net/main-interface/get-categories-for-ddmenu.php"
+  )
+    .then((response) => response.json())
+    .then((categories) => {
+      categories.forEach((category) => {
+        const option = document.createElement("option");
+        option.value = category.id; // Use the appropriate property for category ID
+        option.textContent = category.name; // Use the appropriate property for category name
+        categorySearchDropdown.appendChild(option);
+      });
+    })
+    .catch((error) => {
+      console.error("Error fetching categories:", error);
+    });
 });
 
+ // declare filteredmarkets here to be able to use it and not be emptied every time
+searchInput.addEventListener("input", fetchResults);
+categorySearchDropdown.addEventListener("change", fetchResults);
 
-searchInput.addEventListener("input", function () {
-  const searchTerm = searchInput.value.toLowerCase();
 
+function fetchResults(event) {
+  var searchTerm = ""
+  
   // Clear previous search results
   searchResults.innerHTML = "";
 
   if(searchFlag){
+    searchTerm = searchInput.value.toLowerCase();
+    let filteredMarkets = [ ];
+
     // Filter markers based on search term
-    const filteredMarkets = markers.filter((marker) =>
+    filteredMarkets = markers.filter((marker) =>
     marker._popup.getContent().toLowerCase().includes(searchTerm)
-  );
+    );
+
+    console.log("skata3", filteredMarkets);
 
     // Show only the filtered markers on the map
     markers.forEach((marker) => {
@@ -104,74 +142,84 @@ searchInput.addEventListener("input", function () {
       } else {
         map.removeLayer(marker);
       }
-      marker.addEventListener("click", () => {
+      // marker.addEventListener("click", () => {
+      //   showStoreDetails(marker);
+      //   toggleSidebar(true);
+      // });
+    });
+    displayResults(filteredMarkets);
+  } else {
+    searchTerm = categorySearchDropdown.value;
+    const encodedSearchTerm = encodeURIComponent(searchTerm); //Because the search category name is in greek characters
+    //console.log(encodedSearchTerm);
+
+    fetch(`http://webproject2023.ddns.net/main-interface/get-markets-based-on-cat.php?searchInput=${encodedSearchTerm}`)
+      .then((response) => response.json())
+      .then((marketsFromCat) => {
+
+        // Clear previous results
+        searchResults.innerHTML = "";
+        //console.log(marketsFromCat);
+
+        let filteredMarkets = [ ];
+        
+       // Extract the names from marketsFromCat
+       const marketNamesFromCat = marketsFromCat.map((market) => market.name.toLowerCase());
+
+       // Filter markers based on names in marketNamesFromCat
+       filteredMarkets = markers.filter((marker) =>
+         marketNamesFromCat.includes(marker.options.name.toLowerCase())
+       );  
+      console.log('skata1', filteredMarkets);
+
+        markers.forEach((marker) => {
+          if (filteredMarkets.includes(marker)) {
+            map.addLayer(marker);
+          } else {
+            map.removeLayer(marker);
+          }
+          marker.addEventListener("click", () => {
+            showStoreDetails(marker);
+            toggleSidebar(true);
+          });
+        });
+        displayResults(filteredMarkets);
+      }      
+    )
+  }
+
+  // Display search results
+  function displayResults(selectedMarkets){
+    console.log('skata', selectedMarkets);
+    selectedMarkets.forEach((marker) => {
+      const resultItem = document.createElement("div"); //create result-item and add class
+      resultItem.classList.add("result-item");
+
+      const nameElement = document.createElement("div"); //create result-name and add class
+      nameElement.classList.add("result-name");
+
+      // Create a div for the address and add class
+      const addressElement = document.createElement("div");
+      addressElement.classList.add("result-address");
+
+      resultItem.appendChild(nameElement); // Append elements to the result item
+      resultItem.appendChild(addressElement);
+
+      nameElement.innerHTML = marker.options.name; //initialise with the name of the market
+      addressElement.innerHTML = marker.options.address;
+
+      // Add event listener when clicking the resultItem to focus on map
+      resultItem.addEventListener("click", () => {
+        map.setView(marker.getLatLng(), 25);
         showStoreDetails(marker);
         toggleSidebar(true);
       });
+      searchResults.appendChild(resultItem);
+
+      //console.log('Name:', nameElement.textContent);
     });
-  } else {
-    fetch(
-      "http://webproject2023.ddns.net/main-interface/get-categories-for-ddmenu.php"
-    ) // Fetch the categories collection
-      .then((response) => response.json())
-      .then((categories) => {
-        const subcategoryDropdown = document.getElementById(
-          "subcategoryDropdown"
-        );
-        subcategoryDropdown.innerHTML = ""; // Clear previous options
-  
-        // Find the selected category in the categories collection
-        const selectedCategory = categories.find(
-          (category) => category.id === selectedCategoryId
-        );
-  
-        if (selectedCategory && selectedCategory.subcategories) {
-          selectedCategory.subcategories.forEach((subcategory) => {
-            const option = document.createElement("option");
-            option.value = subcategory.uuid; // Use the appropriate property for subcategory ID
-            option.textContent = subcategory.name; // Use the appropriate property for subcategory name
-            subcategoryDropdown.appendChild(option);
-          });
-        }
-        //console.log(selectedCategoryId);
-      })
-  
-      .catch((error) => {
-        console.error("Error fetching subcategories:", error);
-      });
-    
   }
-
   
-
-  // Display search results
-  filteredMarkets.forEach((marker) => {
-    const resultItem = document.createElement("div"); //create result-item and add class
-    resultItem.classList.add("result-item");
-
-    const nameElement = document.createElement("div"); //create result-name and add class
-    nameElement.classList.add("result-name");
-
-    // Create a div for the address and add class
-    const addressElement = document.createElement("div");
-    addressElement.classList.add("result-address");
-
-    resultItem.appendChild(nameElement); // Append elements to the result item
-    resultItem.appendChild(addressElement);
-
-    nameElement.innerHTML = marker.options.name; //initialise with the name of the market
-    addressElement.innerHTML = marker.options.address;
-
-    // Add event listener when clicking the resultItem to focus on map
-    resultItem.addEventListener("click", () => {
-      map.setView(marker.getLatLng(), 25);
-      showStoreDetails(marker);
-      toggleSidebar(true);
-    });
-    searchResults.appendChild(resultItem);
-
-    //console.log('Name:', nameElement.textContent);
-  });
 
   // ------------ CODE FOR DISPLAYING THE PRODUCTS OF SELECTED MARKET ----------------
 
@@ -185,6 +233,27 @@ searchInput.addEventListener("input", function () {
     // Update the store details panel with the store name
     const storeNameElement = document.getElementById("storeName");
     storeNameElement.textContent = storeName;
+
+    const submitButton = document.getElementById("submitOffer");
+
+    var formData = new FormData();
+    formData.append("functionality", "check_user_distance"); 
+    formData.append("store_id", marketId);
+    fetch("/map/map_functions.php", {
+      method: "POST",
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        is_user_close = data.user_distance; 
+        console.log(is_user_close);
+        if(!is_user_close){
+          submitButton.classList.add("hide-submit-button");
+        } else submitButton.classList.remove("hide-submit-button");
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
 
     // Fetch and display products for the selected store
     fetchProductsForStore(marketId);
@@ -222,22 +291,94 @@ searchInput.addEventListener("input", function () {
             productName.classList.add("product-name"); 
             productName.textContent = product.name;
             productDetails.appendChild(productName);
+
+            //Create delete product button that will be visible only to admin
+            var formData = new FormData();
+            formData.append("functionality", "check_if_admin");
+            fetch("/map/map_functions.php", {
+              method: "POST",
+              body: formData,
+            })
+              .then((response) => response.json())
+              .then((data) => {      
+                if (data == 1) {
+                  const deleteButton = document.createElement("button");
+                  deleteButton.classList.add("delete-button");
+                  deleteButton.textContent = 'Delete Product';
+                  productDetails.appendChild(deleteButton);
+                }
+              })
+              .catch((error) => {
+                console.error("Error:", error);
+              });
+            
   
             // Create a paragraph for displaying product category and subcategory
             const productCategorySubcategory = document.createElement("p");
             productCategorySubcategory.classList.add(
               "product-category-subcategory"
-            ); // Apply the CSS class
+            );
             productCategorySubcategory.textContent = `${product.category}, ${product.subcategory}`;
             productDetails.appendChild(productCategorySubcategory);
   
+            const productStockInfo = document.createElement("div");
             const productAvailable = document.createElement("p");
-            productAvailable.classList.add("product-available");
-            productAvailable.textContent = product.available ? 'In stock' : 'Out of stock';
-  
+            const productChangeStock = document.createElement("a"); // link button to click it to change stock 
             
+            productStockInfo.classList.add("product-stock-info");
+            productAvailable.classList.add("product-available");
+            productChangeStock.classList.add("product-stock");
+
+            productAvailable.textContent = product.available ? 'In stock' : 'Out of stock';
+            productChangeStock.textContent = product.available ? ' (Out of stock?)' : ' (In stock?)';
+
+            //productChangeStock.setAttribute("href", "#");
+            
+            // if (product.available) {
+            //   productChangeStock.classList.add("product-in-stock");
+
+            //   productChangeStock.textContent = '(Out of stock?)';
+            // } else {
+            //   productChangeStock.classList.add("product-out-stock");
+
+            //   productChangeStock.textContent = '(In stock?)';
+            // }
+
+            productChangeStock.addEventListener("click", () => {
+              console.log('skata');
+              const confirmationMessage = product.available
+                ? "Are you sure you want to mark this product as out of stock?"
+                : "Are you sure you want to mark this product as in stock?";
+            
+              if (window.confirm(confirmationMessage)) {
+                // User confirmed, toggle the product availability here
+                // Example: You can set product.available to its opposite value
+                product.available = !product.available;
+                productChangeStock.textContent = product.available ? '(Out of stock?)' : '(In stock?)';
+            
+                // Update the text content of productAvailable accordingly
+                productAvailable.textContent = product.available ? 'In stock' : 'Out of stock';
+
+                var formData = new FormData();
+                formData.append("functionality", "product_availability");
+                formData.append("availability", product.available);
+                formData.append("store_id", marketId);
+                formData.append("product_id", product.id);
+                
+                fetch("/map/map_functions.php", {
+                  method: "POST",
+                  body: formData,
+                })
+                  .then((response) => response.text())
+                  .catch((error) => {
+                    console.error("Error:", error);
+                  });
+              }
+            });
   
-            productDetails.appendChild(productAvailable);
+            productStockInfo.appendChild(productAvailable);
+            productStockInfo.appendChild(productChangeStock);
+            productDetails.appendChild(productStockInfo);
   
             // Create a paragraph for displaying product likes and dislikes with icons
             const productLikesDislikes = document.createElement("div");
@@ -287,9 +428,6 @@ searchInput.addEventListener("input", function () {
                 body: formData,
               })
                 .then((response) => response.text())
-                .then((data) => {
-                  console.log(data); // Log the response from the PHP file
-                })
                 .catch((error) => {
                   console.error("Error:", error);
                 });
@@ -341,9 +479,6 @@ searchInput.addEventListener("input", function () {
                 body: formData,
               })
                 .then((response) => response.text())
-                .then((data) => {
-                  console.log(data); // Log the response from the PHP file
-                })
                 .catch((error) => {
                   console.error("Error:", error);
                 });
@@ -406,4 +541,4 @@ searchInput.addEventListener("input", function () {
         console.error("Error:", error);
       });
   }
-});
+};

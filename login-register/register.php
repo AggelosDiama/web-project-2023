@@ -3,7 +3,7 @@
   session_start();
 
   if(isset($_SESSION['user_id'])) {
-    header('Location: http://webproject2023.ddns.net/main.php');
+    header('Location: http://webproject2023.ddns.net/index.php');
   }
 
 ?>
@@ -92,12 +92,17 @@
               <div class="form_data" id="password">
                 <div class="form_label">Password</div>
                 <div class="form_input">
-                  <input type="password" id="password" placeholder="Enter Password" />
+                  <input type="password" id="password" 
+                    title="Password must be at least 8 characters long, contain at least one uppercase letter, one number, and one special character." 
+                    placeholder="Enter Password" />
                 </div>
               <div class="form_data" id="password_conf">
                 <div class="form_label">Confirm Password</div>
                 <div class="form_input">
-                  <input type="password" id="password_conf" placeholder="Confrim your Password" />
+                  <input type="password" id="password_conf" 
+                    title="Password must match the password above." 
+                    placeholder="Enter Password" />
+                  placeholder="Confrim your Password" />
                 </div>
                 <div class="form_btn_container">
                   <button class="form_button">Sign Up</button>

@@ -54,17 +54,21 @@ body, html {
 
 .search-mode-button {
   padding: 5px 10px;
-  background-color: #2674bc;
+  background-color: #599fea;
+  margin: 0px 6px 0px 5px;
   margin-bottom: 15px;
   color: #fff;
+  border-radius: 20px; 
   border: none;
-  border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.8s ease;
 }
 
 .search-mode-button.active {
-  background-color: #0056b3; /
+  background-color: #2674bc;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 1),
+              0 0 0 5px #2674bc; 
+     
 }
 
 /* Style for the search input */
@@ -95,7 +99,8 @@ body, html {
 
 
 /* Style for the search bar */
-.searchbar {
+.searchbar, 
+#categorySearchDropdown {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 25px;
@@ -177,7 +182,7 @@ body, html {
 
 /* ----------- Style for the "Submit an Offer" button and its popup ----------- */
 
-.submitOffer {
+#submitOffer {
   padding: 10px 20px; 
   background-color: #2674bc; 
   color: #fff; 
@@ -192,6 +197,10 @@ body, html {
 
 .submitOffer:hover {
   background-color: #0056b3; 
+}
+
+.hide-submit-button {
+  display: none;
 }
 
 /* -----------  CSS for the popup container -----------  */
@@ -329,43 +338,41 @@ body, html {
 }
 
 
-  /* Style for the product list */
-  #productList {
-    max-height: 100vh;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
+/* Style for the product list */
+#productList {
+  max-height: 100vh;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
 
-  /* Style for each product item */
-  .product-item {
-    display: flex;
-    flex-direction: row; 
-    gap: 5px;
-    padding: 15px;
-    border-bottom: 2px solid #b8b6b6;
-    transition: background-color 0.3s ease;
-  }
+/* Style for each product item */
+.product-item {
+  position: relative;
+  display: flex;
+  flex-direction: row; 
+  gap: 5px;
+  padding: 15px;
+  border-bottom: 2px solid #b8b6b6;
+  transition: background-color 0.3s ease;
+}
 
-  .product-item.unavailable {
-    pointer-events: none;
-  }
+/* .product-item.unavailable {
+  pointer-events: none;
+} */
 
-  /* .product-item.disabled-product {
-    background: #ccc;
-    opacity: 0.5;
-    pointer-events: none;
-  } */
+/* .product-item.disabled-product {
+  background: #ccc;
+  opacity: 0.5;
+  pointer-events: none;
+} */
 
-  .offer-error {
-    font-weight: bold;
-    font-size: large;
-    margin-top: 80px;
-  }
+.offer-error {
+  font-weight: bold;
+  font-size: large;
+  margin-top: 80px;
+}
 
-  .product-item:hover {
-    background-color: #ddd;
-  }
 
 /* Style for the product name */
 .product-name {
@@ -430,8 +437,58 @@ body, html {
 /* Style for the outline icon */
 .outline {
   color: #333; 
+  cursor: pointer;  
+}
+
+/* ------------------------------------------------------ */
+
+.product-stock-info {
+  display: flex;
+  align-items: center;
+}
+
+.product-stock {
+  color: #333;
+  margin-left: 5px;
   cursor: pointer;
 }
+
+.product-stock:link {
+  text-decoration: none;
+}
+
+.product-stock:visited {
+  color: #333;
+  text-decoration: none;
+}
+
+.product-stock:hover {
+  text-decoration: underline;
+}
+
+/* .product-in-stock, .product-out-stock {
+  color: #333;
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+.product-in-stock:link,.product-out-stock:link {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.product-in-stock:visited,.product-out-stock:visited {
+  color: #333;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.product-in-stock:hover, .product-out-stock:hover {
+  text-decoration: underline;
+} */
+
+/* ------------------------------------------------------ */
+
 
 .product-available {
   font-weight: bold;
@@ -445,11 +502,24 @@ body, html {
 .product-price {
   font-size: 25px;
   float: right;
-  margin-block: -100px;
+  margin-block: -150px;
   right: 35px;
   position: absolute; 
 }
 
+.delete-button {
+  padding: 5px 10px 5px 10px;
+  cursor: pointer;
+  border: none;
+  border-radius: 25px;
+  background-color: #df3a3a;
+  color: white;
+  font-weight: bold;
+}
+
+.delete-button:hover {
+  opacity: 0.8;
+}
 
 /* ----- Avatar at the top right Styling ----- */
 
@@ -463,7 +533,6 @@ body, html {
 
   /* Styles for the user menu */
 .user-menu {
-  cursor: pointer;
   background-color: #333;
   border-radius: 50%; /* Makes it a circular shape */
   padding: 14px;
@@ -472,8 +541,6 @@ body, html {
   height: 60px;
   justify-content: center; 
   align-items: center; 
-
-  
  }
 
  .user-menu i {
@@ -512,23 +579,39 @@ body, html {
 }
 
 /* Style for dropdown menu items */
-.dropdown-content button, .dropdown-content p {
+
+.dropdown-content p,
+.dropdown-content a {
   padding: 12px 16px;
   text-decoration: none;
   display: block;
   border: none;
-  cursor: pointer;
   color: #333;
 }
 
+.dropdown-content p {
+  pointer-events: none;
+}
+
+.dropdown-content a {
+  cursor: pointer;
+}
+
 .dropdown-content button {
+  padding: 12px 16px;
+  border: none;
+  cursor: pointer;
+  color: #333;
   background-color: #f9f9f9;
+  font-size: 16px;
+  width: 100%;
+  text-align: left;
   
 }
 
 /* Highlight dropdown menu items on hover */
 .dropdown-content button:hover,
-.dropdown-content p:hover {
+.dropdown-content a:hover{
   background-color: #ddd;
 }
 

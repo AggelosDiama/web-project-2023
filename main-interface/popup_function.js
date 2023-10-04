@@ -193,7 +193,9 @@ function submitOffer() {
   })
     .then((response) => response.json())
     .then((data) => {
-      console.log(data);
+      if(data=500) {
+        alert("User is too far away");
+      }
     })
     .catch((error) => {
       console.error("Error:", error);
