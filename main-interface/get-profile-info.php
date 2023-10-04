@@ -28,6 +28,7 @@ $userInfo=[];
 $userLikedProducts = [];
 $userDislikedProducts = [];
 $userProductOffers = [];
+$userTokens = $user["tokens"];
 
 if (!$user) {
     // Handle the case where the user is not found
@@ -44,7 +45,7 @@ foreach ($user['liked_products'] as $liked_product){
             "action" => "Liked product",
             "market_name" => $market['name'],
             "product_name" => $product['name'],
-            "date_submitted"=> $liked_products['date_submited']
+            "date_submitted"=> $liked_product['date_submitted']
         ];
     }
 }
@@ -58,7 +59,7 @@ foreach ($user['disliked_products'] as $disliked_product){
             "action" => "Disliked product",
             "market_name" => $market['name'],
             "product_name" => $product['name'],
-            "date_submitted"=> $disliked_products['date_submited']
+            "date_submitted"=> $disliked_product['date_submitted']
         ];
     }
 }
@@ -72,15 +73,17 @@ foreach ($user['product_offers'] as $product_offer){
             "action" => "Submitted product",
             "market_name" => $market['name'],
             "product_name" => $product['name'],
-            "date_submited"=> $product_offer['date_submitted']
+            "date_submitted"=> $product_offer['date_submitted']
         ];
     }
 }
 
+
 $userInfo = [
     "liked_products" => $userLikedProducts,
     "disliked_products" => $userDislikedProducts,
-    "product_offers" => $userProductOffers
+    "product_offers" => $userProductOffers,
+    "tokens" => $userTokens
 ];
 
 header('Content-Type: application/json');

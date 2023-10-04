@@ -15,9 +15,12 @@ fetch("/main-interface/get-markets.php")
       const market_id = marketData.id;
       
       const icon = availableProducts.length > 0 ? blueIcon : redIcon;
-      const popupText = availableProducts.length > 0 ? 
-      `<b>${name}</b><br><span style="color: #888;">${address}</span>` : 
-      `<b>${name}</b><br><span style="color: #888;">${address}</span><br><b>No offers for this store</b>`
+      const productCount = availableProducts.length;
+
+      const popupText = `
+        <b>${name}</b><br>
+        <span style="color: #888;">${address}</span><br>
+        <b>Available Products:</b> ${productCount > 0 ? productCount : 'No products available'}`;
 
       const marker = L.marker([coordinates[1], coordinates[0]], {
         icon: icon,
@@ -29,12 +32,7 @@ fetch("/main-interface/get-markets.php")
       if (availableProducts.length>0) {
         map.addLayer(marker);
       }
-      //console.log(marker.options.name);
-      marker.addEventListener("click", () => {
-        showStoreDetails(marker);
-        toggleSidebar(true);
-      });
-
+      
       markers.push(marker);
     });
   })
@@ -142,10 +140,10 @@ function fetchResults(event) {
       } else {
         map.removeLayer(marker);
       }
-      // marker.addEventListener("click", () => {
-      //   showStoreDetails(marker);
-      //   toggleSidebar(true);
-      // });
+      marker.addEventListener("click", () => {
+        showStoreDetails(marker);
+        toggleSidebar(true);
+      });
     });
     displayResults(filteredMarkets);
   } else {
@@ -371,18 +369,6 @@ function fetchResults(event) {
             productAvailable.textContent = product.available ? 'In stock' : 'Out of stock';
             productChangeStock.textContent = product.available ? ' (Out of stock?)' : ' (In stock?)';
 
-            //productChangeStock.setAttribute("href", "#");
-            
-            // if (product.available) {
-            //   productChangeStock.classList.add("product-in-stock");
-
-            //   productChangeStock.textContent = '(Out of stock?)';
-            // } else {
-            //   productChangeStock.classList.add("product-out-stock");
-
-            //   productChangeStock.textContent = '(In stock?)';
-            // }
-
             productChangeStock.addEventListener("click", () => {
               console.log('skata');
               const confirmationMessage = product.available
@@ -480,7 +466,7 @@ function fetchResults(event) {
             thumbsDownCircleBg.classList.add("thumbsdown-circle");
   
             const thumbsDownIcon = document.createElement("span");
-            thumbsDownIcon.classList.add("fas", "fa-thumbs-down", "outline"); // Add 'outline' class for outlined icon
+            thumbsDownIcon.classList.add("fas", "fa-thumbs-down", "outline");
   
             thumbsDownIcon.addEventListener("click", () => {
               // Data for the POST request
@@ -554,6 +540,33 @@ function fetchResults(event) {
               thumbsDownIcon.classList.add("unavailable");
               productItem.classList.add("unavailable");
             }
+
+            var formData = new FormData();
+            formData.append("functionality", "check_user_distance"); 
+            formData.append("store_id", marketId);
+            fetch("/map/map_functions.php", {
+              method: "POST",
+              body: formData,
+            })
+              .then((response) => response.json())
+              .then((data) => {
+                is_user_close = data.user_distance; 
+                console.log(is_user_close);
+                if(!is_user_close){
+                  productLikesDislikes.classList.add("unavailable");
+                  thumbsUpIcon.classList.add("unavailable");
+                  thumbsDownIcon.classList.add("unavailable");
+                  productItem.classList.add("unavailable");
+                } else {
+                  productLikesDislikes.classList.remove("unavailable");
+                  thumbsUpIcon.classList.remove("unavailable");
+                  thumbsDownIcon.classList.remove("unavailable");
+                  productItem.classList.remove("unavailable");
+                }
+              })
+              .catch((error) => {
+                console.error("Error:", error);
+              });
   
             const miscInfo = document.createElement("p");
             miscInfo.classList.add("product-misc-info")

@@ -72,7 +72,7 @@ function update_user_likes($change_type) {
     $productData = [
         'marker_id' => intval($_POST["store_id"]),
         'product_id' => intval($_POST["product_id"]),
-        'date_submited' => date("Y-m-d")
+        'date_submitted' => date("Y-m-d")
     ];
     if ($change_type === "add"){
         $new_like_count = $user_like_count + 1;
@@ -110,6 +110,17 @@ function update_user_likes($change_type) {
     ];
     $collection->updateOne($filter, $update);
     
+    # Add points to user
+    $collection = $client->$dbName->users; 
+    $filter = ['email' => $_SESSION["email"]];
+    $update = [
+        '$inc' => [
+            'tokens.total_tokens' => 5,
+            'tokens.given_tokens' => 5,
+        ],
+    ];
+    $collection->updateOne($filter, $update);
+    
     echo json_encode("User like count changed");
     exit();
 }
@@ -133,7 +144,7 @@ function update_user_dislikes($change_type) {
     $productData = [
         'marker_id' => intval($_POST["store_id"]),
         'product_id' => intval($_POST["product_id"]),
-        'date_submited' => date("Y-m-d")
+        'date_submitted' => date("Y-m-d")
     ];
     if ($change_type === "add"){
         $new_dislike_count = $user_dislike_count + 1;
@@ -171,6 +182,17 @@ function update_user_dislikes($change_type) {
         '$set' => [
             'products.$.dislike_count' => $new_dislike_count
         ]
+    ];
+    $collection->updateOne($filter, $update);
+
+    # Add points to user
+    $collection = $client->$dbName->users; 
+    $filter = ['email' => $_SESSION["email"]];
+    $update = [
+        '$dec' => [
+            'tokens.total_tokens' => 1,
+            'tokens.given_tokens' => 1,
+        ],
     ];
     $collection->updateOne($filter, $update);
 

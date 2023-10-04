@@ -107,9 +107,9 @@
     $(document).ready(function () {
     // Function to compare dates, considering null dates as the latest
 function compareDates(a, b) {
-    if (!a.date_submited) return 1;
-    if (!b.date_submited) return -1;
-    return new Date(a.date_submited) - new Date(b.date_submited);
+    if (!a.date_submitted) return 1;
+    if (!b.date_submitted) return -1;
+    return new Date(a.date_submitted) - new Date(b.date_submitted);
 }
 
 // Function to fill the user history table
@@ -132,7 +132,7 @@ function fillUserHistoryTable(dataArray, tableBody) {
         productCell.textContent = item.product_name;
 
         const dateCell = document.createElement("td");
-        dateCell.textContent = item.date_submited;
+        dateCell.textContent = item.date_submitted;
 
         // Append cells to the row
         row.appendChild(actionCell);
@@ -151,6 +151,19 @@ var userEmail = "<?php echo $_SESSION['email']; ?>";
 // Assuming you have a table body element with the id "userHistoryTableBody"
 const userHistoryTableBody = document.getElementById("userHistoryTableBody");
 
+function fillProfileTable(data) {
+  const totalScoreCell = document.querySelector("#profileInfo tr:nth-child(1) td");
+  const currentMonthScoreCell = document.querySelector("#profileInfo tr:nth-child(2) td");
+  const tokensReceivedLastMonthCell = document.querySelector("#profileInfo tr:nth-child(3) td");
+  const totalTokensReceivedCell = document.querySelector("#profileInfo tr:nth-child(4) td");
+
+  // Fill the table cells with data
+  totalScoreCell.textContent = data.tokens.total_tokens;
+  currentMonthScoreCell.textContent = data.tokens.this_month_tokens;
+  tokensReceivedLastMonthCell.textContent = data.tokens.last_month_tokens;
+  totalTokensReceivedCell.textContent = data.tokens.given_tokens;
+}
+
 // Fetch user history data
 fetch(`/main-interface/get-profile-info.php?userEmail=${userEmail}`)
   .then((response) => response.json())
@@ -166,10 +179,14 @@ fetch(`/main-interface/get-profile-info.php?userEmail=${userEmail}`)
     fillUserHistoryTable(data.liked_products, userHistoryTableBody);
     fillUserHistoryTable(data.disliked_products, userHistoryTableBody);
     fillUserHistoryTable(data.product_offers, userHistoryTableBody);
+    fillProfileTable(data);
   })
   .catch((error) => {
     console.error("Error:", error);
   });
+
+  // Call the function to fill the table when the document is ready
+  document.addEventListener("DOMContentLoaded", fillProfileTable);  
 
    
 });

@@ -118,7 +118,7 @@
               <?php if ($admin) { echo " (Admin)"; } ?>
             </p>
             <a href="main-interface/profile.php" id="test">Edit Profile</a>
-            <?php if ($admin) { echo '<a href="main-interface/admin.css">Admin Page</a>'; } ?> <!-- available only to admin users -->
+            <?php if ($admin) { echo '<a href="main-interface/admin.php">Admin Page</a>'; } ?> <!-- available only to admin users -->
             <form action="./login-register/logout.php" method="post">  
               <button type="submit" name="logout">Log Out</button>
             </form>
