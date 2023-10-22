@@ -11,7 +11,7 @@ It is up to other users to check the validity of the offers, who can either vali
 Regular consumers want to buy quality products and their lowest value (value for money) and often it’s difficult to compare prices among all the available markets and a short amount of time. With Make.DisCount the user can easily find markets nearby, check their discounts on products and decide in a timely manner where to buy what. Moreover, they can create a community of users where they will evaluate the discounts and in that way, they will highlight certain products if their discount is worth it or not. 
 
 ## UX Research
-Before starting the design and development of the web app we conducting a short but valuable User Experience research where we defined the main points of the app and searched similar apps on how they designed around a map element. The report of the research can be found [**here**]([url](https://docs.google.com/document/d/1JeKEP3GgZApipUp8u3QFViwdH21vnyexxryihFJpS4I/edit?usp=sharing)).
+Before starting the design and development of the web app we conducting a short but valuable User Experience research where we defined the main points of the app and searched similar apps on how they designed around a map element. The report of the research can be found **[here]([url](https://docs.google.com/document/d/1JeKEP3GgZApipUp8u3QFViwdH21vnyexxryihFJpS4I/edit?usp=sharing))**.
 
 ## Screenshots
 
