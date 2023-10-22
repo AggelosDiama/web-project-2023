@@ -1,6 +1,6 @@
 # CEID - WEB PROJECT 2023
 
-This is a class project of the course Programming and Systems in Worldwide Web of the Computer Engineering and Informatics Department (CEID) of University of Patras.
+This is a class project of the course Programming and Systems in Worldwide Web of the Computer Engineering and Informatics Department (CEID) of University of Patras. It was implemented by **Aggelos Diamantopoulos** (Front-end part) and **Fotis Paraskevopoulos** (Back-end part).
 
 ## Goal of Application
 The aim of this project is to develop a collaborative system for registration, search and evaluation of super-market consumer goods offers between users. The system allows its registered users to inform others about the availability of products that are at a good (according to their own criteria) price, working in parallel with existing tools (such as e-katanalotis), which are only updated in terms of price but not stock, but also do not include all super-market stores (e.g. local chains, mini-markets).
